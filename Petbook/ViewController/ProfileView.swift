@@ -1,20 +1,27 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @State private var selection: String? = nil
     var body: some View {
+        let defaults = UserDefaults.standard
+        let username = defaults.string(forKey: "username") ?? "Jean Paul"
+        let email = defaults.string(forKey: "email")
+        NavigationView
+        {
         VStack {
+            NavigationLink(destination: EditProfileView(), tag: "EditUP", selection: $selection) { EmptyView() }
             HStack {
                 Image("Avatar")
-                    .resizable()
+                    .resizable()                            
                     .frame(width: 80, height: 80)
                     .clipShape(Circle())
-                
+                                        
                 VStack(alignment: .leading) {
-                    Text("John Doe")
-                        .font(.title)
+                    Text(username)
                         .fontWeight(.bold)
                     
                     Button(action: {
+                        selection = "EditUP"
                         // handle edit button action
                     }) {
                         Image(systemName: "pencil")
@@ -75,6 +82,9 @@ struct ProfileView: View {
             
             
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarHidden(true)
+    }
     }
 }
 

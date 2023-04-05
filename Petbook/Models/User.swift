@@ -7,7 +7,7 @@
 
 import Foundation
 struct User {
-    var id: Int
+    var id: String
     let fullname: String
     let email: String
     let password: String

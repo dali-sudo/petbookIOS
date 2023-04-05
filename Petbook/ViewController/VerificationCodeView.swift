@@ -8,12 +8,17 @@
 import SwiftUI
 
 struct VerificationCodeView: View {
-    
+    @ObservedObject var viewModel: VerificationCodeViewModel = VerificationCodeViewModel()
    @State private var code = ""
-  
+    @Binding var email: String
+   
 
-
-  var body: some View {
+     @State private var showAlert  = false
+     @State private var showWrong  = false
+     @State private var isLoading: Bool = false
+     let defaults = UserDefaults.standard
+     @State var shouldNavigate = false
+    var body: some View {
       VStack {
         
           Text("Enter Code                      ")
@@ -42,8 +47,28 @@ struct VerificationCodeView: View {
          
           
           Button(action: {
-              // Perform login action
-          }) {
+              // Perform login action if !emailError
+              
+                  isLoading = true
+                  viewModel.Verif(email: email,code: code) { result in
+                      isLoading = false
+                      switch result {
+                      case .success(let ForgetPasswordResponse):
+                          // Handle successful sign-in
+                          shouldNavigate = true
+                            
+                                
+                      
+                      case .failure(let error):
+                          // Handle sign                      -in error
+                          showWrong = true
+                       
+                          print("Sign-up error:", error)
+                      }
+                  }
+              }
+             
+          ) {
               Text("Continue")
                   .foregroundColor(.white)
                   .font(.headline)
@@ -61,6 +86,7 @@ struct VerificationCodeView: View {
 
 struct VerificationCodeView_Previews: PreviewProvider {
     static var previews: some View {
-        VerificationCodeView()
+        let name = Binding.constant("John")
+        VerificationCodeView(email:name)
     }
 }

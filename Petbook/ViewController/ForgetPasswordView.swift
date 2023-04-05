@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct ForgetPasswordView: View {
-    
-   @State private var newpassword = ""
-  @State private var Cpassword = ""
-
-
+    @ObservedObject var viewModel: ForgetPasswordViewModel = ForgetPasswordViewModel()
+   @State private var email = ""
+    @State private var emailError = false
+    @State private var showAlert  = false
+    @State private var showWrong  = false
+    @State private var isLoading: Bool = false
+    let defaults = UserDefaults.standard
+    @State var shouldNavigate = false
   var body: some View {
       VStack {
         
@@ -28,7 +31,15 @@ struct ForgetPasswordView: View {
               .padding(.bottom, 30)
          
           
-          TextField             ("E-mail", text: $Cpassword)
+          TextField             ("E-mail", text: $email,onEditingChanged: { isEditing in
+              if !isEditing {
+                  if !email.isValidEmail {
+                      emailError = true
+                  } else {
+                      emailError = false
+                  }
+              }
+          })
               .padding()
               .background(Color.gray.opacity(0.2))
               .cornerRadius(10)
@@ -40,7 +51,30 @@ struct ForgetPasswordView: View {
           
          
           
-          Button(action: {
+          Button(action: {                if !emailError
+              {
+                  isLoading = true
+                  viewModel.Forget(email: email) { result in
+                      isLoading = false
+                      switch result {
+                      case .success(let ForgetPasswordResponse):
+                          // Handle successful sign-in
+                          shouldNavigate = true
+                            
+                                
+                      
+                      case .failure(let error):
+                          // Handle sign                      -in error
+                          showWrong = true
+                       
+                          print("Sign-up error:", error)
+                      }
+                  }
+              }
+              else {
+                  showAlert = true
+              }
+
               // Perform login action
           }) {
               Text("Continue")
@@ -51,7 +85,9 @@ struct ForgetPasswordView: View {
                   .background(Color.yellow)
                   .cornerRadius(10)
           }
-          .padding(.bottom, 250)
+          NavigationLink(destination: VerificationCodeView(email: $email), isActive: $shouldNavigate) {
+                             EmptyView()
+                         }          .padding(.bottom, 250)
       }
       .padding(.top,150)
       .padding(.horizontal)
