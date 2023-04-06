@@ -1,25 +1,24 @@
 //
-//  ForgetPasswordViewModel.swift
+//  ProfileViewModel.swift
 //  Petbook
 //
-//  Created by user233432 on 3/30/23.
+//  Created by user233432 on 4/6/23.
 //
 
 import Foundation
-class ForgetPasswordViewModel: ObservableObject {
-    var email: String = ""
+class ProfileViewModel: ObservableObject {
+    var id: String = ""
+    @Published var user:GetUserProfilResponse?
     
-    
-    
-    let serverUrl = "https://3aa2-41-225-72-82.eu.ngrok.io/user/SendCode"
+    let serverUrl = "https://3aa2-41-225-72-82.eu.ngrok.io/user/getUserProfil"
      
-    func Forget(email: String, completion: @escaping (Result<ForgetPasswordResponse, Error>) -> Void) {
+    func getProfile(id: String, completion: @escaping (Result<GetUserProfilResponse, Error>) -> Void) {
          guard let url = URL(string: serverUrl) else {
              completion(.failure(NSError(domain: "Invalid server URL", code: 0, userInfo: nil)))
              return
          }
          
-         let parameters = ["email": email]
+         let parameters = ["id":id]
          
          var request = URLRequest(url: url)
          request.httpMethod = "POST"
@@ -40,9 +39,9 @@ class ForgetPasswordViewModel: ObservableObject {
              do {
                  print(data)
                  let decoder = JSONDecoder()
-                 let fResponse = try decoder.decode(ForgetPasswordResponse.self, from: data)
-                
-                 completion(.success( fResponse ))
+                 let u = try decoder.decode(GetUserProfilResponse.self, from: data)
+                 self.user=u;
+                 completion(.success(u))
              } catch {
                  completion(.failure(error))
              }

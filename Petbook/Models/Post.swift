@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct Post {
+struct Post1 {
     let id: String?
     let postImage: [String]?
     let postUsername: String?
