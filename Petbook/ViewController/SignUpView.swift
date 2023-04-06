@@ -18,7 +18,7 @@ struct SignUpView: View {
     @State private var showAlert  = false
     @State private var showWrong  = false
     @State private var isLoading: Bool = false
-    let defaults = UserDefaults.standard
+  
     var body: some View {
         VStack {
             
@@ -99,12 +99,7 @@ struct SignUpView: View {
                         case .success(let user):
                             // Handle successful sign-in
                             print("Account:", user)
-                            defaults.set(user.email, forKey: "email")
-                            defaults.set(user.fullname, forKey: "username")
-                            defaults.set(user.id, forKey: "userId")
-                            // Sync the changes to disk
-                            defaults.synchronize()
-                        
+                         
                         case .failure(let error):
                             // Handle sign                      -in error
                             showWrong = true
@@ -135,8 +130,10 @@ struct SignUpView: View {
             }
           
         }
+         
+    
             .padding(.bottom, 250)
-            
+         
       
     }
         

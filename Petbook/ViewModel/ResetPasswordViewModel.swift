@@ -1,25 +1,25 @@
 //
-//  ForgetPasswordViewModel.swift
+//  ResetPasswordViewModel.swift
 //  Petbook
 //
-//  Created by user233432 on 3/30/23.
+//  Created by user233432 on 4/5/23.
 //
 
 import Foundation
-class ForgetPasswordViewModel: ObservableObject {
+class ResetPasswordViewModel: ObservableObject {
     var email: String = ""
     
+    var password: String = ""
     
-    
-    let serverUrl = "https://3aa2-41-225-72-82.eu.ngrok.io/user/SendCode"
+    let serverUrl = "https://3aa2-41-225-72-82.eu.ngrok.io/user/resetPassword"
      
-    func Forget(email: String, completion: @escaping (Result<ForgetPasswordResponse, Error>) -> Void) {
+    func Reset(email: String,password: String, completion: @escaping (Result<ForgetPasswordResponse, Error>) -> Void) {
          guard let url = URL(string: serverUrl) else {
              completion(.failure(NSError(domain: "Invalid server URL", code: 0, userInfo: nil)))
              return
          }
          
-         let parameters = ["email": email]
+        let parameters = ["email": email,"password":password]
          
          var request = URLRequest(url: url)
          request.httpMethod = "POST"

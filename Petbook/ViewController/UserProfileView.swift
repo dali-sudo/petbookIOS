@@ -8,25 +8,33 @@
 import SwiftUI
 
 struct UserProfileView: View {
-
-        var body: some View {
+    @ObservedObject var viewModel: ProfileViewModel=ProfileViewModel()
+    @State private var showAlert  = false
+    @State private var showWrong  = false
+    @State private var isLoading: Bool = true
+    
+    var body: some View {
             VStack {
-                HStack {
-                    VStack{
-                        Image(systemName: "person.circle")
+                if(isLoading){
+                    ProgressView()
+                }
+                else{
+                    
+                
+                            HStack {
+                                VStack{ if let uiImage = UIImage(data: Data(base64Encoded: viewModel.user!.user.avatar) ?? Data()) {
+                        Image(uiImage: uiImage)
                             .resizable()
-                            .frame(width: 80, height: 80)
+                            .frame(width: 80, height: 80) .clipShape(Circle()).aspectRatio(contentMode: .fill)
                         VStack(alignment: .leading) {
-                            Text("John Doe")
+                            Text( viewModel.user!.user.username)
                                 .font(.headline)
-                            Text("@johndoe")
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
+                         
                         }
                         
                     }
-                    
-                    Spacer()
+                    }
+                                ;         Spacer()
                     HStack(spacing: 20) {
                         VStack(alignment: .leading) {
                             Text("10")
@@ -36,14 +44,14 @@ struct UserProfileView: View {
                                 .foregroundColor(.gray)
                         }
                         VStack(alignment: .leading) {
-                            Text("123")
+                            Text(               String(viewModel.user!.user.followerscount)     )
                                 .font(.headline)
                             Text("Followers")
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                         }
                         VStack(alignment: .leading) {
-                            Text("456")
+                            Text(String(viewModel.user!.user.followingcount))
                                 .font(.headline)
                             Text("Following")
                                 .font(.subheadline)
@@ -58,23 +66,48 @@ struct UserProfileView: View {
                 Divider()
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
-                        ForEach(0..<20) { _ in
-                            Image(systemName: "photo")
-                                .resizable()
-                                .scaledToFit()
-                        }
-                    }
-                    .padding()
+                     ForEach(viewModel.user!.posts, id: \.self) { post in
+                                if let uiImage = UIImage(data: Data(base64Encoded: post.images[0]) ?? Data()) {
+                                    Image(uiImage: uiImage)
+                                        .resizable()
+                                        .scaledToFit()
+                                }
+                            }                    .padding()
                 }
                 Spacer()
             }
-        }
-    }
-
+            } } .onAppear{
+                let defaults = UserDefaults.standard
+                
+                let id = defaults.string(forKey: "userId") ;
+                print(id!)
+                viewModel.getProfile(id:"63a8553948dccc27aba167de"){ result in
+               isLoading = false
+               switch result {
+               case .success(let u):
+                 
+                        
+                   // Handle successful sign-in
+                  break     
+                         
+               
+               case .failure(let error):
+                   // Handle sign                      -in error
+                   showWrong = true
+                
+                   print("Sign-up error:", error)
+                 
+               }
+           }
+            }      .onChange(of: viewModel.user) { newValue in
+                // Refresh view when user profile changes
+            }         }
+}
                 
 
 struct UserProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        UserProfileView()
+           UserProfileView()
     }
 }
+

@@ -13,7 +13,7 @@ struct PetbookApp: App {
 
     var body: some Scene {
         WindowGroup {
-          LoginView()
+         UserProfileView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

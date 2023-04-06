@@ -77,7 +77,9 @@ struct VerificationCodeView: View {
                   .background(Color.yellow)
                   .cornerRadius(10)
           }
-          .padding(.bottom, 250)
+          NavigationLink(destination: ResetPasswordView(email: $email), isActive: $shouldNavigate) {
+                             EmptyView()
+                         }              .padding(.bottom, 250)
       }
       .padding(.top,150)
       .padding(.horizontal)

@@ -11,7 +11,7 @@ class VerificationCodeViewModel: ObservableObject {
     
     var code: String = ""
     
-    let serverUrl = "https://57ce-41-225-208-158.eu.ngrok.io/user/VerifCode"
+    let serverUrl = "https://3aa2-41-225-72-82.eu.ngrok.io/user/VerifCode"
      
     func Verif(email: String,code: String, completion: @escaping (Result<ForgetPasswordResponse, Error>) -> Void) {
          guard let url = URL(string: serverUrl) else {
