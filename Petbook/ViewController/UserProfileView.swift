@@ -76,32 +76,32 @@ struct UserProfileView: View {
                 }
                 Spacer()
             }
-            } } .onAppear{
-                let defaults = UserDefaults.standard
-                
-                let id = defaults.string(forKey: "userId") ;
-                print(id!)
-                viewModel.getProfile(id:"63a8553948dccc27aba167de"){ result in
-               isLoading = false
-               switch result {
-               case .success(let u):
-                 
-                        
-                   // Handle successful sign-in
-                  break     
-                         
-               
-               case .failure(let error):
-                   // Handle sign                      -in error
-                   showWrong = true
-                
-                   print("Sign-up error:", error)
-                 
+                } } .onAppear{
+                    let defaults = UserDefaults.standard
+                    
+                    let id = defaults.string(forKey: "userId") ;
+                    print(id!)
+                    viewModel.getProfile(id:"63a8553948dccc27aba167de"){ result in
+                   isLoading = false
+                   switch result {
+                   case .success(let u):
+                     
+                            
+                       // Handle successful sign-in
+                      break
+                             
+                   
+                   case .failure(let error):
+                       // Handle sign                      -in error
+                       showWrong = true
+                    
+                       print("Sign-up error:", error)
+                     
+                   }
                }
-           }
-            }      .onChange(of: viewModel.user) { newValue in
-                // Refresh view when user profile changes
-            }         }
+                }      .onChange(of: viewModel.user) { newValue in
+                    // Refresh view when user profile changes
+                }         }
 }
                 
 

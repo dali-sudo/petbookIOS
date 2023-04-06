@@ -1,52 +1,56 @@
-//
-//  ProfileViewModel.swift
-//  Petbook
-//
-//  Created by user233432 on 4/6/23.
-//
+    //
+    //  ProfileViewModel.swift
+    //  Petbook
+    //
+    //  Created by user233432 on 4/6/23.
+    //
 
-import Foundation
-class ProfileViewModel: ObservableObject {
-    var id: String = ""
-    @Published var user:GetUserProfilResponse?
-    
-    let serverUrl = "https://3aa2-41-225-72-82.eu.ngrok.io/user/getUserProfil"
-     
-    func getProfile(id: String, completion: @escaping (Result<GetUserProfilResponse, Error>) -> Void) {
-         guard let url = URL(string: serverUrl) else {
-             completion(.failure(NSError(domain: "Invalid server URL", code: 0, userInfo: nil)))
-             return
-         }
+    import Foundation
+    class ProfileViewModel: ObservableObject {
+        var id: String = ""
+        @Published var user:GetUserProfilResponse?
+        
+        
+        
+        
+        let serverUrl = "https://3aa2-41-225-72-82.eu.ngrok.io/user/getUserProfil"
+        
          
-         let parameters = ["id":id]
-         
-         var request = URLRequest(url: url)
-         request.httpMethod = "POST"
-         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-         request.httpBody = try? JSONSerialization.data(withJSONObject: parameters)
-         
-         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-             if let error = error {
-                 completion(.failure(error))
+        func getProfile(id: String, completion: @escaping (Result<GetUserProfilResponse, Error>) -> Void) {
+             guard let url = URL(string: serverUrl) else {
+                 completion(.failure(NSError(domain: "Invalid server URL", code: 0, userInfo: nil)))
                  return
              }
              
-             guard let data = data else {
-                 completion(.failure(NSError(domain: "No data returned from server", code: 0, userInfo: nil)))
-                 return
+             let parameters = ["id":id]
+                                    
+             var request = URLRequest(url: url)
+             request.httpMethod = "POST"
+             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+             request.httpBody = try? JSONSerialization.data(withJSONObject: parameters)
+             
+             let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                 if let error = error {
+                     completion(.failure(error))
+                     return
+                 }
+                 
+                 guard let data = data else {
+                     completion(.failure(NSError(domain: "No data returned from server", code: 0, userInfo: nil)))
+                     return
+                 }
+                 
+                 do {
+                     print(data)
+                     let decoder = JSONDecoder()
+                     let u = try decoder.decode(GetUserProfilResponse.self, from: data)
+                     self.user=u;
+                     completion(.success(u))
+                 } catch {
+                     completion(.failure(error))
+                 }
              }
              
-             do {
-                 print(data)
-                 let decoder = JSONDecoder()
-                 let u = try decoder.decode(GetUserProfilResponse.self, from: data)
-                 self.user=u;
-                 completion(.success(u))
-             } catch {
-                 completion(.failure(error))
-             }
+             task.resume()
          }
-         
-         task.resume()
-     }
-}
+    }

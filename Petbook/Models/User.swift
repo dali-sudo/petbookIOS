@@ -11,4 +11,6 @@ struct User {
     let fullname: String
     let email: String
     let password: String
+    var avatar:String?
+    var token:String?
 }

@@ -15,7 +15,7 @@ class SignInViewModel: ObservableObject {
     
     
     
-    let serverUrl = "https://54e3-102-28-7-62.eu.ngrok.io/user/signin"
+    let serverUrl = "https://9e45-102-159-177-58.eu.ngrok.io/user/signin"
      
      func signIn(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
          guard let url = URL(string: serverUrl) else {
@@ -45,7 +45,7 @@ class SignInViewModel: ObservableObject {
                  print(data)
                  let decoder = JSONDecoder()
                  let loginResponse = try decoder.decode(LoginResponse.self, from: data)
-                 let user = User(id: loginResponse.data._id, fullname: loginResponse.data.username, email: loginResponse.data.email, password: loginResponse.data.password)
+                 let user = User(id: loginResponse.data._id, fullname: loginResponse.data.username, email: loginResponse.data.email, password: loginResponse.data.password, avatar: loginResponse.data.avatar, token : loginResponse.data.token)
                  completion(.success(user))
              } catch {
                  completion(.failure(error))

@@ -101,10 +101,14 @@ struct LoginView: View {
                         switch result {
                         case .success(let user):
                             // Handle successful sign-in
-                            print("User logged in:", user)
+                            
                             defaults.set(user.email, forKey: "email")
                             defaults.set(user.fullname, forKey: "username")
                             defaults.set(user.id, forKey: "userId")
+                            defaults.set(user.password, forKey: "password")
+                            defaults.set(user.token, forKey: "userToken")
+                            
+                            defaults.set(user.avatar,forKey : "avatar")
                             // Sync the changes to disk
                             defaults.synchronize()
                             selection = "P"
@@ -146,6 +150,7 @@ struct LoginView: View {
            
         }
         .padding()
+        .navigationBarBackButtonHidden(true)
     }
         
     }
