@@ -42,8 +42,8 @@
                  
                                             
                     VStack(alignment: .leading) {
-                        Text(username)
-                            .fontWeight(.bold)
+                        NavigationLink(destination: UserProfileView()) { Text(username)
+                            .fontWeight(.bold)}
                         
                         Button(action: {
                            

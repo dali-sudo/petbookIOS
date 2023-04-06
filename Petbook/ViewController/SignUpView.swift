@@ -16,9 +16,11 @@ struct SignUpView: View {
     @State private var passwordError = false
     @State private var cpasswordError = false
     @State private var showAlert  = false
+    @State private var showsucces  = false
     @State private var showWrong  = false
     @State private var isLoading: Bool = false
-  
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
     var body: some View {
         VStack {
             
@@ -45,10 +47,10 @@ struct SignUpView: View {
                     }
                 }
             })
-                .padding()
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(10)
-                .padding(.bottom, 20)
+            .padding()
+            .background(Color.gray.opacity(0.2))
+            .cornerRadius(10)
+            .padding(.bottom, 20)
             if emailError {
                 Text("Please enter a valid email address.")
                     .foregroundColor(.red)
@@ -60,16 +62,16 @@ struct SignUpView: View {
                 .cornerRadius(10)
                 .padding(.bottom, 20)
                 .onChange(of: password) { newValue in
-                                if newValue.count < 5 {
-                                    passwordError = true
-                                } else {
-                                    passwordError = false
-                                }
-                            }
-                        if passwordError {
-                            Text("Password must be at least 5 characters.")
-                                .foregroundColor(.red)
-                        }
+                    if newValue.count < 5 {
+                        passwordError = true
+                    } else {
+                        passwordError = false
+                    }
+                }
+            if passwordError {
+                Text("Password must be at least 5 characters.")
+                    .foregroundColor(.red)
+            }
             
             SecureField("Confirm Password", text: $confirmPassword)
                 .padding()
@@ -78,15 +80,15 @@ struct SignUpView: View {
                 .padding(.bottom, 20)
                 .onChange(of:confirmPassword) { newValue in
                     if newValue != password {
-                                    cpasswordError = true
-                                } else {
-                                    cpasswordError = false
-                                }
-                            }
-                        if cpasswordError {
-                            Text("Password not matching.")
-                                .foregroundColor(.red)
-                        }
+                        cpasswordError = true
+                    } else {
+                        cpasswordError = false
+                    }
+                }
+            if cpasswordError {
+                Text("Password not matching.")
+                    .foregroundColor(.red)
+            }
             
             Button(action: {
                 
@@ -97,13 +99,14 @@ struct SignUpView: View {
                         isLoading = false
                         switch result {
                         case .success(let user):
-                            // Handle successful sign-in
+                            // Handle successful sign-up
                             print("Account:", user)
-                         
-                        case .failure(let error):
+                            alertMessage = "Sign-up successful!"
+                            alertTitle = "Success"    ;                           showsucces = true
+                                               case .failure(let error):
                             // Handle sign                      -in error
                             showWrong = true
-                         
+                            
                             print("Sign-up error:", error)
                         }
                     }
@@ -112,33 +115,34 @@ struct SignUpView: View {
                     showAlert = true
                 }
                 
-                    
+                
                 
             }) {
                 if isLoading {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle())
-                               }
+                }
                 else {
-                Text("Sign Up")
-                    .foregroundColor(.white)
-                    .font(.headline)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.yellow)
-                    .cornerRadius(10)
+                    Text("Sign Up")
+                        .foregroundColor(.white)
+                        .font(.headline)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.yellow)
+                        .cornerRadius(10)
+                }
+                
             }
-          
-        }
-         
-    
+            
+            
             .padding(.bottom, 250)
-         
-      
-    }
-        
-    }
-}
+            
+            
+        }.alert(isPresented: $showsucces) {
+            Alert(title: Text("Sign-up successful!"), message: Text("account Created"),
+                  dismissButton: .default(Text("OK")))
+        } 
+    }}
 
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {

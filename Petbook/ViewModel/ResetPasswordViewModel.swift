@@ -11,7 +11,7 @@ class ResetPasswordViewModel: ObservableObject {
     
     var password: String = ""
     
-    let serverUrl = "https://3aa2-41-225-72-82.eu.ngrok.io/user/resetPassword"
+    let serverUrl = "https://a8ae-41-225-72-82.eu.ngrok.io/user/resetPassword"
      
     func Reset(email: String,password: String, completion: @escaping (Result<ForgetPasswordResponse, Error>) -> Void) {
          guard let url = URL(string: serverUrl) else {

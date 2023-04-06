@@ -17,7 +17,7 @@ struct LoginView: View {
         NavigationView
         {
         VStack {
-            NavigationLink(destination: ProfileView(), tag: "P", selection: $selection) { EmptyView() }
+            NavigationLink(destination: NavBarView().navigationBarBackButtonHidden(true), tag: "P", selection: $selection) { EmptyView() }
             Image("Top")
                 .ignoresSafeArea()
                                             
@@ -74,16 +74,22 @@ struct LoginView: View {
                 
               
             }
-            .padding(.bottom, 20)
-            
-            
-            NavigationLink(destination: ForgetPasswordView() ) {
-                Text("Forgot password?")
-                    .foregroundColor(.yellow)
-                    .font(.subheadline)
+            VStack {
+                // ...existing views here...
+                NavigationLink(destination: ForgetPasswordView()) {
+                    Text("Forgot password?")
+                        .foregroundColor(.yellow)
+                        .font(.subheadline)
+                }
+                NavigationLink(destination: SignUpView()) {
+                    Text("Don't have an account? Sign up")
+                        .foregroundColor(.yellow)
+                        .font(.subheadline)
+                }
+
             }
-                    
-            
+         
+        
             Button(action: {
                 print(String(emailError))
                 print(String(passwordError))

@@ -99,7 +99,7 @@ struct ResetPasswordView: View {
                         .background(Color.yellow)
                         .cornerRadius(10)
                 }
-                NavigationLink(destination: LoginView(), isActive: $shouldNavigate) {
+                NavigationLink(destination: LoginView().navigationBarBackButtonHidden(true),isActive: $shouldNavigate) {
                     EmptyView()
                 }
                        }

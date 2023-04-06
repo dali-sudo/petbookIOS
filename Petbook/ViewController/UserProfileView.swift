@@ -26,7 +26,7 @@ struct UserProfileView: View {
                         Image(uiImage: uiImage)
                             .resizable()
                             .frame(width: 80, height: 80) .clipShape(Circle()).aspectRatio(contentMode: .fill)
-                        VStack(alignment: .leading) {
+                        VStack(alignment: .leading) {       
                             Text( viewModel.user!.user.username)
                                 .font(.headline)
                          
@@ -37,8 +37,9 @@ struct UserProfileView: View {
                                 ;         Spacer()
                     HStack(spacing: 20) {
                         VStack(alignment: .leading) {
-                            Text("10")
+                            Text(String(viewModel.user!.posts.count))
                                 .font(.headline)
+                                .padding(.leading,5)
                             Text("Posts")
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
@@ -46,6 +47,7 @@ struct UserProfileView: View {
                         VStack(alignment: .leading) {
                             Text(               String(viewModel.user!.user.followerscount)     )
                                 .font(.headline)
+                                .padding(.leading,5)
                             Text("Followers")
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
@@ -53,6 +55,7 @@ struct UserProfileView: View {
                         VStack(alignment: .leading) {
                             Text(String(viewModel.user!.user.followingcount))
                                 .font(.headline)
+                                .padding(.leading,5)                        
                             Text("Following")
                                 .font(.subheadline)
                                 .foregroundColor(.gray)

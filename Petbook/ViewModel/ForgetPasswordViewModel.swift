@@ -11,7 +11,7 @@ class ForgetPasswordViewModel: ObservableObject {
     
     
     
-    let serverUrl = "https://3aa2-41-225-72-82.eu.ngrok.io/user/SendCode"
+    let serverUrl = "https://a8ae-41-225-72-82.eu.ngrok.io/user/SendCode"
      
     func Forget(email: String, completion: @escaping (Result<ForgetPasswordResponse, Error>) -> Void) {
          guard let url = URL(string: serverUrl) else {

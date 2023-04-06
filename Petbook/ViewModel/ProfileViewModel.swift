@@ -13,7 +13,7 @@
         
         
         
-        let serverUrl = "https://3aa2-41-225-72-82.eu.ngrok.io/user/getUserProfil"
+        let serverUrl = "https://a8ae-41-225-72-82.eu.ngrok.io/user/getUserProfil"
         
          
         func getProfile(id: String, completion: @escaping (Result<GetUserProfilResponse, Error>) -> Void) {
