@@ -10,6 +10,11 @@
 		1C078A5F29DE548200524C0B /* GetUserPostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C078A5E29DE548200524C0B /* GetUserPostResponse.swift */; };
 		1C078A6129DE551E00524C0B /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C078A6029DE551E00524C0B /* PostViewModel.swift */; };
 		1C09B51229D2629000270257 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C09B51129D2629000270257 /* SignInViewModel.swift */; };
+		1C16E32529E2549300F25425 /* PetSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C16E32429E2549300F25425 /* PetSliderView.swift */; };
+		1C16E32729E2585500F25425 /* PetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C16E32629E2585500F25425 /* PetsViewModel.swift */; };
+		1C16E32929E2598800F25425 /* PetResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C16E32829E2598800F25425 /* PetResponse.swift */; };
+		1C16E32B29E26B7300F25425 /* PetProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C16E32A29E26B7300F25425 /* PetProfile.swift */; };
+		1C16E32E29E26C7B00F25425 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 1C16E32D29E26C7B00F25425 /* SwiftUIX */; };
 		1C1CFA3229D598DA00BEC3B1 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1CFA3129D598DA00BEC3B1 /* SignUpViewModel.swift */; };
 		1C1CFA3629D59FF500BEC3B1 /* SignUpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1CFA3529D59FF500BEC3B1 /* SignUpResponse.swift */; };
 		1C1CFA3829D5C7E300BEC3B1 /* ForgetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1CFA3729D5C7E300BEC3B1 /* ForgetPasswordViewModel.swift */; };
@@ -47,6 +52,10 @@
 		1C078A5E29DE548200524C0B /* GetUserPostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserPostResponse.swift; sourceTree = "<group>"; };
 		1C078A6029DE551E00524C0B /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		1C09B51129D2629000270257 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		1C16E32429E2549300F25425 /* PetSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSliderView.swift; sourceTree = "<group>"; };
+		1C16E32629E2585500F25425 /* PetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetsViewModel.swift; sourceTree = "<group>"; };
+		1C16E32829E2598800F25425 /* PetResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetResponse.swift; sourceTree = "<group>"; };
+		1C16E32A29E26B7300F25425 /* PetProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetProfile.swift; sourceTree = "<group>"; };
 		1C1CFA3129D598DA00BEC3B1 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		1C1CFA3529D59FF500BEC3B1 /* SignUpResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpResponse.swift; sourceTree = "<group>"; };
 		1C1CFA3729D5C7E300BEC3B1 /* ForgetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewModel.swift; sourceTree = "<group>"; };
@@ -86,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C16E32E29E26C7B00F25425 /* SwiftUIX in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +155,7 @@
 				1C1CFA3929D5CA4500BEC3B1 /* ForgetPasswordResponse.swift */,
 				1CCFFEB829DE42110065BF45 /* GetUserProfilResponse.swift */,
 				1C078A5E29DE548200524C0B /* GetUserPostResponse.swift */,
+				1C16E32829E2598800F25425 /* PetResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -160,6 +171,7 @@
 				1CCFFEB429DE1E350065BF45 /* ResetPasswordViewModel.swift */,
 				1CCFFEB629DE34700065BF45 /* ProfileViewModel.swift */,
 				1C078A6029DE551E00524C0B /* PostViewModel.swift */,
+				1C16E32629E2585500F25425 /* PetsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -177,6 +189,8 @@
 				1C8D27E529C2586300406B99 /* EditProfileView.swift */,
 				1CCFFEB029DE11F20065BF45 /* NavBarView.swift */,
 				1CCFFEB229DE12930065BF45 /* FeedView.swift */,
+				1C16E32429E2549300F25425 /* PetSliderView.swift */,
+				1C16E32A29E26B7300F25425 /* PetProfile.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -205,6 +219,9 @@
 			dependencies = (
 			);
 			name = Petbook;
+			packageProductDependencies = (
+				1C16E32D29E26C7B00F25425 /* SwiftUIX */,
+			);
 			productName = Petbook;
 			productReference = 1C2CACF229BBD6040014331D /* Petbook.app */;
 			productType = "com.apple.product-type.application";
@@ -233,6 +250,9 @@
 				Base,
 			);
 			mainGroup = 1C2CACE929BBD6040014331D;
+			packageReferences = (
+				1C16E32C29E26C7B00F25425 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
+			);
 			productRefGroup = 1C2CACF329BBD6040014331D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -262,12 +282,16 @@
 				1C078A6129DE551E00524C0B /* PostViewModel.swift in Sources */,
 				1C078A5F29DE548200524C0B /* GetUserPostResponse.swift in Sources */,
 				1C2CAD0229BBD6050014331D /* Petbook.xcdatamodeld in Sources */,
+				1C16E32529E2549300F25425 /* PetSliderView.swift in Sources */,
 				1CCFFEB329DE12930065BF45 /* FeedView.swift in Sources */,
+				1C16E32B29E26B7300F25425 /* PetProfile.swift in Sources */,
 				1CCFFEB729DE34700065BF45 /* ProfileViewModel.swift in Sources */,
+				1C16E32929E2598800F25425 /* PetResponse.swift in Sources */,
 				1C2CACFF29BBD6050014331D /* Persistence.swift in Sources */,
 				1CCFFEB929DE42110065BF45 /* GetUserProfilResponse.swift in Sources */,
 				1C453D4029DDF1580094AF72 /* ImagePicker.swift in Sources */,
 				1C1CFA3A29D5CA4500BEC3B1 /* ForgetPasswordResponse.swift in Sources */,
+				1C16E32729E2585500F25425 /* PetsViewModel.swift in Sources */,
 				1C29EA8E29D6942200508B61 /* EditUserProfileViewModel.swift in Sources */,
 				1C8D27E629C2586300406B99 /* EditProfileView.swift in Sources */,
 				1C2CACF829BBD6040014331D /* ContentView.swift in Sources */,
@@ -491,6 +515,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1C16E32C29E26C7B00F25425 /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1C16E32D29E26C7B00F25425 /* SwiftUIX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C16E32C29E26C7B00F25425 /* XCRemoteSwiftPackageReference "SwiftUIX" */;
+			productName = SwiftUIX;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		1C2CAD0029BBD6050014331D /* Petbook.xcdatamodeld */ = {

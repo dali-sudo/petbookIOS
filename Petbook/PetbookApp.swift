@@ -13,7 +13,7 @@ struct PetbookApp: App {
 
     var body: some Scene {
         WindowGroup {
-         LoginView()
+            PetViewPager(id :"64222956e51b42f821d2f1ba")
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
