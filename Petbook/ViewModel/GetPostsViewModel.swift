@@ -1,35 +1,31 @@
 //
-//  SignInViewModedel.swift
+//  GetPostsViewModel.swift
 //  Petbook
 //
-//  Created by user233432 on 3/28/23.
+//  Created by bokh on 13/4/2023.
 //
 
 import Foundation
-
-class SignInViewModel: ObservableObject {
-    var email: String = ""
-    var password: String = ""
+class GetPostsViewModel: ObservableObject {
+    @Published var Posts: [GetPostResponseData]?
+  
     
     
+    let serverUrl = "http://172.17.1.151:9090/post/getAll"
     
-    
-    
-    let serverUrl = "http://172.17.1.151:9090/user/signin"
      
-     func signIn(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
+    func getPosts(completion: @escaping (Result<[GetPostResponseData], Error>) -> Void) {
          guard let url = URL(string: serverUrl) else {
              completion(.failure(NSError(domain: "Invalid server URL", code: 0, userInfo: nil)))
              return
          }
          
-         let parameters = ["email": email, "password": password]
-         
+
+                                
          var request = URLRequest(url: url)
          request.httpMethod = "POST"
          request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-         request.httpBody = try? JSONSerialization.data(withJSONObject: parameters)
-         
+                
          let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
              if let error = error {
                  completion(.failure(error))
@@ -44,13 +40,11 @@ class SignInViewModel: ObservableObject {
              do {
                  print(data)
                  let decoder = JSONDecoder()
-                 let loginResponse = try decoder.decode(LoginResponse.self, from: data)
-                 let user = User(id: loginResponse.data._id, fullname: loginResponse.data.username, email: loginResponse.data.email, password: loginResponse.data.password, avatar: loginResponse.data.avatar, token : loginResponse.data.token)
-                 completion(.success(user))
+                 let u = try decoder.decode([GetPostResponseData].self, from: data)
+                 self.Posts=u;
+                 completion(.success(u))
              } catch {
                  completion(.failure(error))
-              
-                 
              }
          }
          
