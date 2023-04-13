@@ -23,12 +23,15 @@ struct CardView: View {
                 }
             }
           
-            
-            Text(pet.petName!)
-                .font(.title)
-                .fontWeight(.bold)
-                .padding(.top, 20)
-                .foregroundColor(.black)
+            if (pet.petName != nil)
+            {
+                Text(pet.petName!)
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding(.top, 20)
+                    .foregroundColor(.black)
+            }
+         
         }
         .padding(20)
         .background(Color.white)
@@ -59,7 +62,7 @@ struct PetViewPager: View {
          
       
         ZStack {
-            Color.yellow
+            Color.white
                 .edgesIgnoringSafeArea(.all)
             
             TabView {
@@ -150,7 +153,7 @@ struct PetViewPager: View {
                             { result in
                                         switch result {
                                         case .success(let petResponse):
-                                            self.notificationText = "Item added successfully"
+                                            self.notificationText = "Pet added successfully"
                             showingNotification=true
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                                               self.showingNotification = false

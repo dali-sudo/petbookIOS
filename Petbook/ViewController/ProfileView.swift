@@ -8,6 +8,7 @@
             let defaults = UserDefaults.standard
             let username = defaults.string(forKey: "username") ?? "Jean Paul"
             let email = defaults.string(forKey: "email")
+            let userId = defaults.string(forKey: "userId")
           
             NavigationView
             {
@@ -15,6 +16,7 @@
             VStack {
                 NavigationLink(destination: EditProfileView(), tag: "EditUP", selection: $selection) { EmptyView() }
                 NavigationLink(destination: LoginView(), tag: "SignIn", selection: $selection) { EmptyView() }
+                NavigationLink(destination: PetViewPager(id :userId!), tag: "pets", selection: $selection) { EmptyView() }
                 HStack {
                     
                     if let avatar = defaults.string(forKey:"avatar") {
@@ -67,9 +69,7 @@
                 
                 ScrollView {
                     VStack(spacing: 25) {
-                        ProfileCellView(imageName: "petIcon", name: "My pets", description: "Check on ur pets profiles", width: 70, height: 60,action: {
-                            // handle the logout action here
-                        })
+                        ProfileCellView(imageName: "petIcon", name: "My pets", description: "Check on ur pets profiles", width: 70, height: 60)
                        
                       
                     }
@@ -98,18 +98,9 @@
                                 
                                     VStack(spacing: 25) {
                           
-                            ProfileCellView(imageName: "help", name: "Help & Support ", description: "Here u find how to use the app",width: 60, height: 50,action: {
-                                // handle the logout action here
-                            })
-                            ProfileCellView(imageName: "logout 2", name: "Logout", description: "",width: 50, height: 50,action: {
-                                print("clicked")
-                                let domain = Bundle.main.bundleIdentifier!
-                                UserDefaults.standard.removePersistentDomain(forName: domain)
-                                UserDefaults.standard.synchronize()
-                                selection = "SignIn"                            })
-                            ProfileCellView(imageName: "", name: "About app", description: "Our Privacy Policy",width: 40, height: 40,action: {
-                                // handle the logout action here
-                            })
+                            ProfileCellView(imageName: "help", name: "Help & Support ", description: "Here u find how to use the app",width: 60, height: 50)
+                            ProfileCellView(imageName: "logout 2", name: "Logout", description: "",width: 50, height: 50)
+                            ProfileCellView(imageName: "", name: "About app", description: "Our Privacy Policy",width: 40, height: 40)
                           
                         }
                         .padding(.horizontal, 20)
@@ -132,9 +123,14 @@
             var description: String
             var width : CGFloat
             var height : CGFloat
-            var action: () -> Void
+            var dest: String?
+            
             var body: some View {
+                let defaults = UserDefaults.standard
+                let userId = defaults.string(forKey: "userId")
+                NavigationLink(destination: PetViewPager( id: userId!)) {
                 HStack {
+                     
                     Image(imageName)
                         .resizable()
                         .frame(width: width, height: height)
@@ -152,6 +148,7 @@
                     
                     Spacer()
                 }
+            }
             }
     }
 
