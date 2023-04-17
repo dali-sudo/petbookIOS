@@ -32,6 +32,8 @@ struct FeedView: View {
             }
                 else{
             VStack{
+                
+                
                 List(viewModel.Posts!, id: \._id) { post in
                            PostView(post: post)
                        }
@@ -72,7 +74,7 @@ struct FeedView: View {
                    // Handle sign                      -in error
                   // showWrong = true
                 
-                   print("Sign-up error:", error)
+                   print("get posts error error:", error)
                  
                }
            }

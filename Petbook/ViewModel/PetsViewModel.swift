@@ -14,7 +14,7 @@ class PetsViewModel: ObservableObject {
      @Published var errorMessage = ""
       func fetchCards(for id: String) {
           print(id)
-              guard let url = URL(string: "https://9e45-102-159-177-58.eu.ngrok.io/pet/getAll") else {
+              guard let url = URL(string: "https://bdf3-102-26-240-5.ngrok-free.app/pet/getAll") else {
                   fatalError("Invalid URL")
                   
               }
@@ -35,6 +35,7 @@ class PetsViewModel: ObservableObject {
                   do {
                       let decoder = JSONDecoder()
                       let cardsData = try decoder.decode([PetResponse].self, from: data)
+                      print(cardsData.count , "******************")
                       DispatchQueue.main.async {
                           self.OwnedPets = cardsData
                       }
@@ -48,7 +49,7 @@ class PetsViewModel: ObservableObject {
     
     func addPet(owner: String, petName: String, petType: String, petRace: String, petSex: String, petBirthday: Date, petAvatar: UIImage?, completion: @escaping (Result<PetResponse, Error>) -> Void) {
         // Create URL
-        guard let url = URL(string: "https://9e45-102-159-177-58.eu.ngrok.io/pet/addPet") else {
+        guard let url = URL(string: "https://bdf3-102-26-240-5.ngrok-free.apppet/addPet") else {
             completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
             return
         }

@@ -23,7 +23,12 @@ struct AddPostView: View {
     @State private var showsucces  = false
     @State private var alertTitle = ""
     @State private var alertMessage = ""
+    @ObservedObject var petViewModel = PetsViewModel()
+    @State private var selectedPetId: String?
+    @State private var selectedPetIds: [String] = []
     var body: some View {
+        let defaults = UserDefaults.standard
+        let id = defaults.string(forKey: "userId") ;
         NavigationView {
             VStack(alignment: .leading, spacing: 20) {
               
@@ -62,6 +67,34 @@ struct AddPostView: View {
                                 .stroke(Color.gray.opacity(0.5), lineWidth: 1)
                         )
                 }
+                
+                HStack(spacing: 10) {
+                                    Text("Select a pet:")
+                                        .font(.headline)
+                                    ScrollView(.horizontal, showsIndicators: true) {
+                                        HStack(spacing: 10) {
+                                            ForEach(petViewModel.OwnedPets, id: \.id) { pet in
+                                                Button(action: {
+                                                    if selectedPetIds.contains(pet.id!) {
+                                                                       selectedPetIds.removeAll { $0 == pet.id }
+                                                        print(selectedPetIds)
+                                                                   } else {
+                                                                       selectedPetIds.append(pet.id!)
+                                                                       print(selectedPetIds)
+                                                                   }
+                                                               }){
+                                                    Text(pet.petName!                       )
+                                                        .foregroundColor(selectedPetId == pet.id ? .white : .black)
+                                                        .padding(.horizontal, 10)
+                                                        .padding(.vertical, 5)
+                                                        .background(selectedPetIds.contains(pet.id!) ? Color.blue : Color.gray)
+                                                        .cornerRadius(20)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                
                 Spacer()
             }
             .padding()
@@ -76,11 +109,9 @@ struct AddPostView: View {
                     },
                 trailing:
                     Button(action: {
-                        let defaults = UserDefaults.standard
-                        
-                        let id = defaults.string(forKey: "userId") ;
+                       
                             isLoading = true
-                            viewModel.AddPost(owner: "63a8553948dccc27aba167de", descreption:postText, images: images) { result in
+                            viewModel.AddPost(owner: "63a8553948dccc27aba167de", descreption:postText, images: images,petIds: selectedPetIds) { result in
                                 isLoading = false
                                 switch result {
                                 case .success(let user):
@@ -114,6 +145,10 @@ struct AddPostView: View {
                     
                     .disabled(postText.isEmpty)
             )
+        }.onAppear {
+            print("appear")
+            petViewModel.fetchCards(for: id!)
+           
         }.sheet(isPresented: $IsPickerShowing ) {
             ImagePicker(selectedImage: $tempSelectedImage, isPicker: $IsPickerShowing )
                 .onDisappear {
@@ -123,6 +158,7 @@ struct AddPostView: View {
                     }
                 }
                 .onAppear {
+                   
                     tempSelectedImage = selectedImage
                 }
         }.alert(isPresented: $showsucces) {
@@ -132,6 +168,7 @@ struct AddPostView: View {
     
     }
 }
+
 
 struct AddPostView_Previews: PreviewProvider {
     static var previews: some View {
