@@ -6,12 +6,10 @@
 //
 
 import Foundation
-                                        struct DiscoverPostResponse: Codable,Equatable,Hashable{
-                                                            
-                                            var _id:String
-                                            var   image:String
 
-                                            
-                                            
-                                           
-                                        }
+
+struct DiscoverPostResponse: Identifiable,Codable,Equatable,Hashable {
+    var id : UUID? = UUID()
+    var _id:String
+    var  image:String
+}

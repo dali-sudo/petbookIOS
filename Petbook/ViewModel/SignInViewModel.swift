@@ -15,7 +15,7 @@ class SignInViewModel: ObservableObject {
     
     
     
-    let serverUrl = "https://9e45-102-159-177-58.eu.ngrok.io/user/signin"
+    let serverUrl = "http://172.17.3.211:9090/user/signin"
      
      func signIn(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
          guard let url = URL(string: serverUrl) else {

@@ -15,7 +15,7 @@ var owner:owner
     var  likescount:Int
     
   var images:[String]?
-    
+    var tags:[tag]?
     
     
    
@@ -29,3 +29,13 @@ struct owner: Codable,Equatable {
    
 }
                                                             
+struct tag : Codable,Equatable,Identifiable {
+    var id :UUID? = UUID()
+    var  _id: String
+                                
+    var name: String
+
+   
+   
+}
+        

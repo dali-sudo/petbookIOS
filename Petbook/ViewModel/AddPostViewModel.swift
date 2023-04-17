@@ -13,7 +13,7 @@ class AddPostViewModel: ObservableObject {
     var images: [UIImage]? = nil
     var petIds: [String]? = nil
     var owner:String=""
-    let serverUrl = "https://bdf3-102-26-240-5.ngrok-free.app/post/AddPost"
+    let serverUrl = "http://172.17.3.211:9090/post/AddPost"
     var base64Strings: [String] = []
     func AddPost(owner: String,descreption: String,images: [UIImage]?,petIds: [String]? ,completion: @escaping (Result<ForgetPasswordResponse, Error>) -> Void) {
         guard let url = URL(string: serverUrl) else {

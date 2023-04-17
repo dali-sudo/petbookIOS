@@ -68,7 +68,7 @@ struct AddPostView: View {
                         )
                 }
                 
-                HStack(spacing: 10) {
+                VStack(spacing: 10) {
                                     Text("Select a pet:")
                                         .font(.headline)
                                     ScrollView(.horizontal, showsIndicators: true) {

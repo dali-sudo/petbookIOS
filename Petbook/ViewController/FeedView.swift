@@ -156,7 +156,21 @@ struct PostView: View {
             }
             .padding(.horizontal, 10)
             .padding(.top, 10)
-            
+            ScrollView(.horizontal, showsIndicators: true) {
+                HStack(spacing: 10) {
+                    ForEach(post.tags!, id: \.id) { pet in
+                        Button(action: {
+                        }){
+                            Text(pet.name                       )
+                                .foregroundColor(Color.white )
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 5)
+                                .background(Color.gray)
+                                .cornerRadius(20)
+                        }
+                    }
+                }
+            }
             Text(post.descreption)
                 .padding(.horizontal, 10)
                 .padding(.top, 5)

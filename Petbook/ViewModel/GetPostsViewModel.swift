@@ -8,11 +8,11 @@
 import Foundation
 class GetPostsViewModel: ObservableObject {
     @Published var Posts: [GetPostResponseData]?
-    @Published var RandomPosts: [DiscoverPostResponse]?
+    @Published var RandomPosts: [DiscoverPostResponse]? 
   
     
     
-    let serverUrl = "https://bdf3-102-26-240-5.ngrok-free.app/post/getAll"
+    let serverUrl = "http://172.17.3.211:9090/post/getAll"
     
      
     func getPosts(completion: @escaping (Result<[GetPostResponseData], Error>) -> Void) {
@@ -52,9 +52,9 @@ class GetPostsViewModel: ObservableObject {
          task.resume()
      }
     
-    let serverUrl2 = "https://bdf3-102-26-240-5.ngrok-free.app/post/discover"
+    let serverUrl2 = "http://172.17.3.211:9090/post/discover"
     func getRandomPosts(completion: @escaping (Result<[DiscoverPostResponse], Error>) -> Void) {
-         guard let url = URL(string: serverUrl) else {
+         guard let url = URL(string: serverUrl2) else {
              completion(.failure(NSError(domain: "Invalid server URL", code: 0, userInfo: nil)))
              return
          }
@@ -81,6 +81,8 @@ class GetPostsViewModel: ObservableObject {
                  let decoder = JSONDecoder()
                  let u = try decoder.decode([DiscoverPostResponse].self, from: data)
                  self.RandomPosts=u;
+                 
+                 print(self.RandomPosts!.count)
                  completion(.success(u))
              } catch {
                  completion(.failure(error))

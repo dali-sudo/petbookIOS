@@ -17,7 +17,7 @@ struct NavBarView: View {
                     Text("Feed")
                         .foregroundColor(.yellow)
                 }
-            DiscoverView()
+            DiscoveryView()
                 .tabItem {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.yellow)

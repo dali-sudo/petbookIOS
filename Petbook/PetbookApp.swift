@@ -10,14 +10,25 @@ import SwiftUI
 @main
 struct PetbookApp: App {
     let persistenceController = PersistenceController.shared
-
+    let defaults = UserDefaults.standard
     var body: some Scene {
         WindowGroup {
 
            // PetViewPager(id :"64222956e51b42f821d2f1ba")
-       
-            DiscoveryView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            //LoginView()
+            
+            if  let token = defaults.string(forKey: "userId")
+            {
+                NavBarView()
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                
+            }
+            
+            else {
+               LoginView()
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            }
+           
         }
     }
 }
