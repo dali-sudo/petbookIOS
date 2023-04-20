@@ -1,25 +1,19 @@
 import SwiftUI
 
 struct ImageInfo {
-    let location: String
-    let description: String
+    var location: UIImage?
+    let description: String?
 }
 
 struct PetProfileView: View {
     
-    let images: [ImageInfo] = [
-        ImageInfo(location: "help", description: "Cute cat playing with a ball"),
-        ImageInfo(location: "help", description: "Cute cat playing with a ball"),
-        ImageInfo(location: "help", description: "Cute cat playing with a ball"),
-        ImageInfo(location: "help", description: "Cute cat playing with a ball"),
-        ImageInfo(location: "help", description: "Cute cat playing with a ball"),
-        ImageInfo(location: "help", description: "Cute cat playing with a ball"),
-        ImageInfo(location: "help", description: "Cute cat playing with a ball")
-       
-    ]
-    
+    @StateObject var viewModel = PetsViewModel()
+    @State var images: [UIImage] = []
     @State private var selectedImage: ImageInfo?
-    
+    @State var petAvatar : String?
+    @State var petName : String?
+    @State var isLoading = true
+    let defaults = UserDefaults.standard
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -34,18 +28,44 @@ struct PetProfileView: View {
                       .ignoresSafeArea()
                 
                 VStack {
-                    Image("petIcon")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 100, height: 100)
-                        .clipShape(Circle())
+                    if (petAvatar != nil  )
+                    {
+                        if let imageData = Data(base64Encoded: petAvatar!),
+                                   let uiImage = UIImage(data: imageData)
+                    {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 100, height: 100)
+                                .clipShape(Circle())
+                        
+                    }
+                    }
+                        
+                    else {
+                            Image("petIcon")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 100, height: 100)
+                                .clipShape(Circle())
+                    }
+                    
                        
-                    
-                    
-                    Text("MOMO")
-                        .font(.title)
-                        .foregroundColor(.black)
-                        .padding(.top, 5)
+                    if (petName  != nil )
+                    {
+                        Text(petName!)
+                            .font(.title)
+                            .foregroundColor(.black)
+                            .padding(.top, 5)
+                        
+                    }
+                    else {
+                        Text("Undefined")
+                            .font(.title)
+                            .foregroundColor(.black)
+                            .padding(.top, 5)
+                    }
+                   
                     
                        
                 }
@@ -55,22 +75,31 @@ struct PetProfileView: View {
             Divider().background(Color.yellow)
                 .padding(.top, 10)
             
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 10) {
-                    ForEach(images.indices) { index in
-                        Image(images[index].location)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: (UIScreen.main.bounds.width - 30) / 2, height: (UIScreen.main.bounds.width - 30) / 2)
-                            .clipped()
-                            .onTapGesture {
-                                self.selectedImage = images[index]
-                            }
+            if isLoading {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+            } else {
+                
+                ScrollView {
+                    LazyVGrid(columns: columns, spacing: 10) {
+                        ForEach(images, id: \.self) { image in
+                            Image(uiImage: image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: (UIScreen.main.bounds.width - 30) / 2, height: (UIScreen.main.bounds.width - 30) / 2)
+                                .clipped()
+                                .onTapGesture {
+                                    // handle image tap
+                                    print("clicked")
+                                    self.selectedImage = ImageInfo(location: image, description: "jajaaja")
+                                  
+                                }
+                        }
                     }
+                    .padding(.horizontal, 10)
                 }
-                .padding(.horizontal, 10)
+                .frame(maxHeight: .infinity)
             }
-            .frame(maxHeight: .infinity)
                 
             Spacer()
         }
@@ -78,12 +107,12 @@ struct PetProfileView: View {
             Group {
                 if selectedImage != nil {
                     VStack {
-                        Image(selectedImage!.location)
+                        Image(uiImage:selectedImage!.location!)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .padding()
                         
-                        Text(selectedImage!.description)
+                        Text("gfdg")
                             .font(.headline)
                             .padding()
                         
@@ -108,11 +137,30 @@ struct PetProfileView: View {
                 }
             }
         )
+        .onAppear {
+            //defaults.object(forKey: "petId")! as! String
+            viewModel.getPetImages(id: "6432329f338dd729660989b3"               ) { (uiImages) in
+                            self.images = uiImages
+                            isLoading = false
+                            print(images.count)
+                        }
+            viewModel.getPetProfile(petId: "6432329f338dd729660989b3") { result in
+                switch result {
+                case .success(let pet):
+                    petName = pet.name!
+                    petAvatar = pet.avatar!
+                case .failure(let error):
+                    print("Error fetching pet details: \(error.localizedDescription)")
+                }
+            }
+        }
     }
 }
-
-struct PetProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        PetProfileView()
-    }
-}
+        
+/*
+ struct PetProfileView_Previews: PreviewProvider {
+ static var previews: some View {
+ PetProfileView()
+ }
+ }
+ */

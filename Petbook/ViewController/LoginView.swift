@@ -108,7 +108,7 @@ struct LoginView: View {
                         case .success(let user):
                             // Handle successful sign-in
                             
-                            defaults.set(user.email, forKey: "email")
+                            
                             defaults.set(user.fullname, forKey: "username")
                             defaults.set(user.id, forKey: "userId")
                             defaults.set(user.password, forKey: "password")

@@ -15,9 +15,10 @@ class SignInViewModel: ObservableObject {
     
     
     
-    let serverUrl = "http://172.17.3.211:9090/user/signin"
-     
+    let serverUrl = Utilities.url + "/user/signin"
+                       
      func signIn(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
+         print("forwarding to ", serverUrl)
          guard let url = URL(string: serverUrl) else {
              completion(.failure(NSError(domain: "Invalid server URL", code: 0, userInfo: nil)))
              return

@@ -17,7 +17,7 @@ class EditUserProfileViewModel: ObservableObject {
   
     
     
-     let serverUrl = "http://172.17.3.211:9090/user/edit"
+     let serverUrl = Utilities.url + "/user/edit"
      
     func editProfile(token:String,email: String, password: String, username: String, avatar: UIImage?, completion: @escaping (Result<User, Error>) -> Void) {
          

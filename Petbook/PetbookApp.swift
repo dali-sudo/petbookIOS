@@ -19,7 +19,8 @@ struct PetbookApp: App {
             
             if  let token = defaults.string(forKey: "userId")
             {
-                NavBarView()
+               // NavBarView()
+                 PetProfileView()
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 
             }

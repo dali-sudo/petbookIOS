@@ -11,7 +11,7 @@ class ResetPasswordViewModel: ObservableObject {
     
     var password: String = ""
     
-    let serverUrl = "http://172.17.3.211:9090/user/resetPassword"
+    let serverUrl = Utilities.url + "/user/resetPassword"
      
     func Reset(email: String,password: String, completion: @escaping (Result<ForgetPasswordResponse, Error>) -> Void) {
          guard let url = URL(string: serverUrl) else {

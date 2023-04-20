@@ -12,7 +12,7 @@ class GetPostsViewModel: ObservableObject {
   
     
     
-    let serverUrl = "http://172.17.3.211:9090/post/getAll"
+    let serverUrl =  Utilities.url + "/post/getAll"
     
      
     func getPosts(completion: @escaping (Result<[GetPostResponseData], Error>) -> Void) {
@@ -52,8 +52,9 @@ class GetPostsViewModel: ObservableObject {
          task.resume()
      }
     
-    let serverUrl2 = "http://172.17.3.211:9090/post/discover"
+    let serverUrl2 = Utilities.url + "/post/discover"
     func getRandomPosts(completion: @escaping (Result<[DiscoverPostResponse], Error>) -> Void) {
+        print("forwarding to ", serverUrl)
          guard let url = URL(string: serverUrl2) else {
              completion(.failure(NSError(domain: "Invalid server URL", code: 0, userInfo: nil)))
              return

@@ -11,7 +11,7 @@ class ForgetPasswordViewModel: ObservableObject {
     
     
     
-    let serverUrl = "http://172.17.3.211:9090/user/SendCode"
+    let serverUrl = Utilities.url + "/user/SendCode"
      
     func Forget(email: String, completion: @escaping (Result<ForgetPasswordResponse, Error>) -> Void) {
          guard let url = URL(string: serverUrl) else {

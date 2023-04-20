@@ -13,7 +13,7 @@
         
         
         
-        let serverUrl = "http://172.17.3.211:9090/user/getUserProfil"
+        let serverUrl = Utilities.url + "/user/getUserProfil"
         
          
         func getProfile(id: String, completion: @escaping (Result<GetUserProfilResponse, Error>) -> Void) {

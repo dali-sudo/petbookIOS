@@ -12,7 +12,7 @@ class SignUpViewModel: ObservableObject {
     var fullname: String = ""
     
     
-    let serverUrl = "http://172.17.3.211:9090/user/signup"
+    let serverUrl = Utilities.url + "/user/signup"
      
     func signUp(fullname: String, email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
          guard let url = URL(string: serverUrl) else {

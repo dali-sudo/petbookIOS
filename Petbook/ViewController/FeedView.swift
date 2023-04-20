@@ -16,6 +16,7 @@ struct Post: Identifiable {
 
 struct FeedView: View {
     @State private var isLoading: Bool = true
+   
     @ObservedObject var viewModel: GetPostsViewModel=GetPostsViewModel()
     let posts = [
         Post(username: "johndoe", postImage: "post1", likes: 103, caption: "Beautiful view from my window."),
@@ -33,12 +34,15 @@ struct FeedView: View {
                 else{
             VStack{
                 
-                
-                List(viewModel.Posts!, id: \._id) { post in
-                           PostView(post: post)
-                       }
-                
-                .navigationBarTitle("PetBook")
+            
+                if (viewModel.Posts != nil)  {
+                    List(viewModel.Posts!, id: \._id) { post in
+               PostView(post: post)
+           }
+    
+    .navigationBarTitle("PetBook")
+                }
+                              
                
             }
                 VStack {
@@ -95,9 +99,11 @@ struct FeedView_Previews: PreviewProvider {
 struct PostView: View {
     
     let post: GetPostResponseData
-    
+    let defaults = UserDefaults.standard
+    @State private var selection: String? = nil
     var body: some View {
         VStack(alignment: .leading) {
+            NavigationLink(destination: PetProfileView(), tag: "P", selection: $selection) { EmptyView() }
             Text(post.owner.username)
                
                
@@ -160,8 +166,12 @@ struct PostView: View {
                 HStack(spacing: 10) {
                     ForEach(post.tags!, id: \.id) { pet in
                         Button(action: {
+                            // GET HIM TO PETS PROFILE AND LOAD THE DATA OFTH EPET  THERE
+                            selection = "p"
+                            defaults.set(pet.id, forKey: "petId")
+                            
                         }){
-                            Text(pet.name                       )
+                            Text(pet.name)
                                 .foregroundColor(Color.white )
                                 .padding(.horizontal, 10)
                                 .padding(.vertical, 5)
