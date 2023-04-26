@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct UserProfileView: View {
+    @Binding  var userid:String
     @ObservedObject var viewModel: ProfileViewModel=ProfileViewModel()
     @State private var showAlert  = false
     @State private var showWrong  = false
     @State private var isLoading: Bool = true
-    
+    @State var id:String=""
+
+    @State private var isFollowing:Bool=false
+ 
     var body: some View {
             VStack {
                 if(isLoading){
@@ -35,6 +39,7 @@ struct UserProfileView: View {
                     }
                     }
                                 ;         Spacer()
+                                VStack{
                     HStack(spacing: 20) {
                         VStack(alignment: .leading) {
                             Text(String(viewModel.user!.posts.count))
@@ -61,8 +66,30 @@ struct UserProfileView: View {
                                 .foregroundColor(.gray)
                         }
                     }
+                                    HStack {
+                                        if id != userid {
+                                                    Button("Message") {
+                                                        // Handle message button tap
+                                                    }
+                                                    .padding(6)
+                                                           .background(Color.yellow)
+                                                           .foregroundColor(Color.white)
+                                                           .clipShape(RoundedRectangle(cornerRadius: 10))
+                                               
+                                                Button(isFollowing ? "Unfollow" : "Follow") {
+                                                    // Handle follow/unfollow button tap
+                                                    isFollowing.toggle()
+                                                }
+                                                .padding()
+                                                       .background(Color.yellow)
+                                                       .foregroundColor(Color.white)
+                                                       .clipShape(RoundedRectangle(cornerRadius: 10))
+                                            }
+                                    }
                 }
-                .padding()
+                               
+                            }
+                .padding(6)
                 
                 .padding(.horizontal)
                 
@@ -81,10 +108,10 @@ struct UserProfileView: View {
             }
                 } } .onAppear{
                     let defaults = UserDefaults.standard
-                    
-                    let id = defaults.string(forKey: "userId") ;
-                    print(id!)
-                    viewModel.getProfile(id:"63a8553948dccc27aba167de"){ result in
+                    id = defaults.string(forKey: "userId")!
+                    print("id"+id)
+                    print("userid"+userid)
+                    viewModel.getProfile(id:userid){ result in
                    isLoading = false
                    switch result {
                    case .success(let u):
@@ -110,7 +137,7 @@ struct UserProfileView: View {
 
 struct UserProfileView_Previews: PreviewProvider {
     static var previews: some View {
-           UserProfileView()
+        let name = Binding.constant("John");        UserProfileView(userid: name)
     }
 }
 

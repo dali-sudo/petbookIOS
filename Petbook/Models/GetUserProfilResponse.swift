@@ -31,6 +31,7 @@ struct data2:Codable, Equatable{
         var username: String
         var followingcount: Int
         var followerscount: Int
+    var followers: [String]
         var avatar:String
     static func == (lhs: data2, rhs: data2) -> Bool {
           return lhs._id == rhs._id && lhs.username == rhs.username && lhs.followingcount == rhs.followingcount && lhs.followerscount == rhs.followerscount && lhs.avatar == rhs.avatar

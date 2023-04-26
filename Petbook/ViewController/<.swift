@@ -1,6 +1,7 @@
     import SwiftUI
 
     struct ProfileView: View {
+        @State var userId :String = ""
         @State private var selection: String? = nil
         @ObservedObject var viewModel: ProfileViewModel=ProfileViewModel()
         
@@ -8,7 +9,6 @@
             let defaults = UserDefaults.standard
             let username = defaults.string(forKey: "username") ?? "Jean Paul"
             let email = defaults.string(forKey: "email")
-            let userId = defaults.string(forKey: "userId")
           
             NavigationView
             {
@@ -16,7 +16,7 @@
             VStack {
                 NavigationLink(destination: EditProfileView(), tag: "EditUP", selection: $selection) { EmptyView() }
                 NavigationLink(destination: LoginView(), tag: "SignIn", selection: $selection) { EmptyView() }
-                NavigationLink(destination: PetViewPager(id :userId!), tag: "pets", selection: $selection) { EmptyView() }
+                NavigationLink(destination: PetViewPager(id :userId), tag: "pets", selection: $selection) { EmptyView() }
                 HStack {
                     
                     if let avatar = defaults.string(forKey:"avatar") {
@@ -41,10 +41,12 @@
                         }
                     }
                  
+                  
                  
                                             
                     VStack(alignment: .leading) {
-                        NavigationLink(destination: UserProfileView()) { Text(username)
+                       
+                        NavigationLink(destination: UserProfileView(userid: $userId)) { Text(username)
                             .fontWeight(.bold)}
                         
                         Button(action: {
@@ -112,6 +114,9 @@
                     
                 }
             
+            }.onAppear(){
+                userId = defaults.string(forKey: "userId")!
+
             }
                 .navigationBarBackButtonHidden(true)
             }
