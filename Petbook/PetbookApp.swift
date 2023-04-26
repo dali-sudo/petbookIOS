@@ -27,7 +27,8 @@ struct PetbookApp: App {
             }
             
             else {
-               LoginView()
+              //LoginView()
+                MapView()
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
             }
            

@@ -8,6 +8,6 @@
 import Foundation
 
  class Utilities {
-    static let url = "https://541a-102-159-1-53.ngrok-free.app"
+    static let url = "http://192.168.100.189:9090"
 }
                                                 

@@ -53,6 +53,8 @@
 		1CE70AA729C22143009515FA /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE70AA629C22143009515FA /* Message.swift */; };
 		1CE70AA929C2215B009515FA /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE70AA829C2215B009515FA /* Post.swift */; };
 		1CE70AAB29C221E6009515FA /* VerificationCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE70AAA29C221E6009515FA /* VerificationCodeView.swift */; };
+		4471A46929F9A4C9001EB952 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4471A46829F9A4C9001EB952 /* LocationManager.swift */; };
+		4471A46B29F9A7E8001EB952 /* MKCoordinateRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4471A46A29F9A7E8001EB952 /* MKCoordinateRegion.swift */; };
 		6B01BDE129E7698B0065DB17 /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B01BDE029E7698B0065DB17 /* AddPostView.swift */; };
 		6B01BDE329E76B4F0065DB17 /* AddPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B01BDE229E76B4F0065DB17 /* AddPostViewModel.swift */; };
 		6B01BDE729E794270065DB17 /* GetPostsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B01BDE629E794270065DB17 /* GetPostsViewModel.swift */; };
@@ -106,6 +108,9 @@
 		1CE70AA629C22143009515FA /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		1CE70AA829C2215B009515FA /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		1CE70AAA29C221E6009515FA /* VerificationCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeView.swift; sourceTree = "<group>"; };
+		4471A46729F9A304001EB952 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4471A46829F9A4C9001EB952 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		4471A46A29F9A7E8001EB952 /* MKCoordinateRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKCoordinateRegion.swift; sourceTree = "<group>"; };
 		6B01BDE029E7698B0065DB17 /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
 		6B01BDE229E76B4F0065DB17 /* AddPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostViewModel.swift; sourceTree = "<group>"; };
 		6B01BDE629E794270065DB17 /* GetPostsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPostsViewModel.swift; sourceTree = "<group>"; };
@@ -143,6 +148,7 @@
 		1C2CACF429BBD6040014331D /* Petbook */ = {
 			isa = PBXGroup;
 			children = (
+				4471A46729F9A304001EB952 /* Info.plist */,
 				1C453D3E29DDF13F0094AF72 /* utils */,
 				1C2CAD0A29BBD8F50014331D /* ViewController */,
 				1C2CAD0929BBD8D20014331D /* ViewModel */,
@@ -233,6 +239,8 @@
 			children = (
 				1C453D3F29DDF1580094AF72 /* ImagePicker.swift */,
 				1CD2EB8629F16F9D00CBBE19 /* utilities.swift */,
+				4471A46829F9A4C9001EB952 /* LocationManager.swift */,
+				4471A46A29F9A7E8001EB952 /* MKCoordinateRegion.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -340,6 +348,7 @@
 				1CD8CCF429F8E742004B9B25 /* SearchUsersViewModel.swift in Sources */,
 				1C2CACF829BBD6040014331D /* ContentView.swift in Sources */,
 				1CE70A9B29C20E0F009515FA /* ResetPasswordView.swift in Sources */,
+				4471A46929F9A4C9001EB952 /* LocationManager.swift in Sources */,
 				1C1CFA3229D598DA00BEC3B1 /* SignUpViewModel.swift in Sources */,
 				6B01BDE129E7698B0065DB17 /* AddPostView.swift in Sources */,
 				1CE70A9F29C214FA009515FA /* UserProfileView.swift in Sources */,
@@ -354,6 +363,7 @@
 				1C2CAD0C29BBDD390014331D /* LoginView.swift in Sources */,
 				1C2F7D5929D2764F000EDCA8 /* LoginResponse.swift in Sources */,
 				1C09B51229D2629000270257 /* SignInViewModel.swift in Sources */,
+				4471A46B29F9A7E8001EB952 /* MKCoordinateRegion.swift in Sources */,
 				1C1CFA3C29D5CDD700BEC3B1 /* VerificationCodeViewModel.swift in Sources */,
 				1CDCA98A29BBFE34007B930B /* SignUpView.swift in Sources */,
 				1CD8CCF829F8F4A4004B9B25 /* SearchView.swift in Sources */,
@@ -498,6 +508,8 @@
 				DEVELOPMENT_TEAM = XV7B528UZS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Petbook/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Need location to see user's location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -528,6 +540,8 @@
 				DEVELOPMENT_TEAM = XV7B528UZS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Petbook/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Need location to see user's location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
