@@ -77,10 +77,16 @@ struct UserProfileView: View {
                                                            .clipShape(RoundedRectangle(cornerRadius: 10))
                                                
                                                 Button(isFollowing ? "Unfollow" : "Follow") {
-                                                    // Handle follow/unfollow button tap
+                                                    if isFollowing {
+                                                        print("unfollow")
+                                                    Unfollow()
+                                                        
+                                                    }
+                                                    else{
+                                                        follow()}                                                   
                                                     isFollowing.toggle()
                                                 }
-                                                .padding()
+                                                .padding(6          )
                                                        .background(Color.yellow)
                                                        .foregroundColor(Color.white)
                                                        .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -115,8 +121,14 @@ struct UserProfileView: View {
                    isLoading = false
                    switch result {
                    case .success(let u):
-                     
-                            
+                       if let array = viewModel.user?.user               .followers {
+                       for i in    array                   {
+                           if i == id {
+                           isFollowing=true
+                               break // exit the loop once the ID is found
+                           }
+                       }
+                       }
                        // Handle successful sign-in
                       break
                              
@@ -132,6 +144,46 @@ struct UserProfileView: View {
                 }      .onChange(of: viewModel.user) { newValue in
                     // Refresh view when user profile changes
                 }         }
+    private func follow(){
+        viewModel.Follow(myid:id,followed:userid){ result in
+     
+       switch result {
+       case .success(let u):
+         
+                
+           // Handle successful sign-in
+          break
+       isFollowing=true
+       
+       case .failure(let error):
+           // Handle sign                      -in error
+           showWrong = true
+        
+           print("Sign-up error:", error)
+         
+       }
+   }
+    }
+    private func Unfollow(){
+        viewModel.UnFollow(myid:id,followed:userid){ result in
+     
+       switch result {
+       case .success(let u):
+         
+                
+           // Handle successful sign-in
+          break
+       isFollowing=false
+       
+       case .failure(let error):
+           // Handle sign                      -in error
+           showWrong = true
+        
+           print("Sign-up error:", error)
+         
+       }
+   }
+    }
 }
                 
 

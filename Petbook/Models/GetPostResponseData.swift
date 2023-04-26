@@ -11,11 +11,12 @@ struct GetPostResponseData: Codable,Equatable{
     var _id:String
     var   descreption:String
  
-var owner:owner
+var owner:owner?
     var  likescount:Int
     
   var images:[String]?
     var tags:[tag]?
+    var likes:[String]?
     
     
    

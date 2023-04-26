@@ -38,8 +38,7 @@ struct FeedView: View {
                 if (viewModel.Posts != nil)  {
                     List(viewModel.Posts!, id: \._id) { post in
                PostView(post: post)
-           }
-    
+                    }
     .navigationBarTitle("PetBook")
                 }
                               
@@ -89,7 +88,7 @@ struct FeedView: View {
             
         }
     }
-    
+  
 }
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
@@ -98,13 +97,15 @@ struct FeedView_Previews: PreviewProvider {
 }
 struct PostView: View {
     
-    let post: GetPostResponseData
+    @State var post: GetPostResponseData
     let defaults = UserDefaults.standard
     @State private var selection: String? = nil
+    @State var isLiked = false
+    @ObservedObject var viewModel: GetPostsViewModel=GetPostsViewModel()
     var body: some View {
         VStack(alignment: .leading) {
-            NavigationLink(destination: PetProfileView(), tag: "P", selection: $selection) { EmptyView() }
-            Text(post.owner.username)
+           // NavigationLink(destination: PetProfileView(), tag: "P", selection: $selection) { EmptyView() }
+            Text(post.owner!.username)
                
                
             Spacer()
@@ -138,23 +139,23 @@ struct PostView: View {
                 }
             }
                     
-            HStack {
-                Image(systemName: "heart")
-                    .foregroundColor(.red)
-                    .padding(.trailing, 10)
-                Image(systemName: "message")
-                    .foregroundColor(.white)
-                    .padding(.trailing, 10)
-                Image(systemName: "paperplane")
-                    .foregroundColor(.white)
-                    .padding(.trailing, 10)
-                Spacer()
-                Image(systemName: "bookmark")
-                    .foregroundColor(.white)
-            }
-            .padding(.top, -35)
-            .padding(.horizontal, 10)
-            
+          
+                Button(action: {
+                    if isLiked{
+                    dislike()
+                        print("unliked")
+                    }
+                    else{
+                        like()
+                            print("liked")
+                    }
+                      }) {
+                          Image(systemName: isLiked ? "heart.fill" : "heart")
+                              .foregroundColor(isLiked ? .red : .gray)
+                             
+                          .frame(width:5 , height:5)                      }
+                      
+    
             HStack {
                 Text("\(post.likescount) likes")
                     .fontWeight(.bold)
@@ -167,7 +168,7 @@ struct PostView: View {
                     ForEach(post.tags!, id: \.id) { pet in
                         Button(action: {
                             // GET HIM TO PETS PROFILE AND LOAD THE DATA OFTH EPET  THERE
-                            selection = "p"
+                            //  selection = "p"
                             defaults.set(pet.id, forKey: "petId")
                             
                         }){
@@ -186,8 +187,62 @@ struct PostView: View {
                 .padding(.top, 5)
             
             Spacer()
-        }
-        .navigationBarTitle("", displayMode: .inline)
+        }.onAppear{
+            let defaults = UserDefaults.standard
+            let userid = defaults.string(forKey: "userId")!
+            if let array = post.likes {
+            for i in    array                   {
+                if i == userid {
+                isLiked=true
+                    break // exit the loop once the ID is found
+                }
+            }
+            }
+            
+        }.navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)
+        .allowsHitTesting(false)
+    }
+    private func like(){
+        let defaults = UserDefaults.standard
+        let userid = defaults.string(forKey: "userId")!
+        viewModel.like(id: post._id,like:userid){ result in
+       switch result {
+       case .success(let u):
+       isLiked=true
+           post.likescount+=1
+           // Handle successful sign-in
+          break
+                 
+       
+       case .failure(let error):
+           // Handle sign                      -in error
+          // showWrong = true
+        
+           print("get posts error error:", error)
+         
+       }
+   }
+    }
+    private func dislike(){
+        let defaults = UserDefaults.standard
+        let userid = defaults.string(forKey: "userId")!
+        viewModel.dislike(id: post._id,like:userid){ result in
+       switch result {
+       case .success(let u):
+       isLiked=false
+           post.likescount-=1
+           // Handle successful sign-in
+          break
+                 
+       
+       case .failure(let error):
+           // Handle sign                      -in error
+          // showWrong = true
+        
+           print("get posts error error:", error)
+         
+       }
+   }
     }
 }
