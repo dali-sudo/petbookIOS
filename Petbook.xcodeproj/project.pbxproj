@@ -39,6 +39,9 @@
 		1CCFFEB729DE34700065BF45 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCFFEB629DE34700065BF45 /* ProfileViewModel.swift */; };
 		1CCFFEB929DE42110065BF45 /* GetUserProfilResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCFFEB829DE42110065BF45 /* GetUserProfilResponse.swift */; };
 		1CD2EB8729F16F9D00CBBE19 /* utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD2EB8629F16F9D00CBBE19 /* utilities.swift */; };
+		1CD8CCF429F8E742004B9B25 /* SearchUsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD8CCF329F8E742004B9B25 /* SearchUsersViewModel.swift */; };
+		1CD8CCF629F8E863004B9B25 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD8CCF529F8E863004B9B25 /* SearchResponse.swift */; };
+		1CD8CCF829F8F4A4004B9B25 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD8CCF729F8F4A4004B9B25 /* SearchView.swift */; };
 		1CDCA98A29BBFE34007B930B /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDCA98929BBFE34007B930B /* SignUpView.swift */; };
 		1CDCA98C29BC0086007B930B /* <.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDCA98B29BC0086007B930B /* <.swift */; };
 		1CE70A9B29C20E0F009515FA /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE70A9A29C20E0F009515FA /* ResetPasswordView.swift */; };
@@ -88,6 +91,9 @@
 		1CCFFEB629DE34700065BF45 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		1CCFFEB829DE42110065BF45 /* GetUserProfilResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserProfilResponse.swift; sourceTree = "<group>"; };
 		1CD2EB8629F16F9D00CBBE19 /* utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utilities.swift; sourceTree = "<group>"; };
+		1CD8CCF329F8E742004B9B25 /* SearchUsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUsersViewModel.swift; sourceTree = "<group>"; };
+		1CD8CCF529F8E863004B9B25 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
+		1CD8CCF729F8F4A4004B9B25 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		1CDCA98929BBFE34007B930B /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		1CDCA98B29BC0086007B930B /* <.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "<.swift"; sourceTree = "<group>"; };
 		1CE70A9A29C20E0F009515FA /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
@@ -173,6 +179,7 @@
 				1C16E32829E2598800F25425 /* PetResponse.swift */,
 				6B01BDE929E796EE0065DB17 /* GetPostResponseData.swift */,
 				1C08C4C529ED1D4D0044957D /* DiscoverPostResponse.swift */,
+				1CD8CCF529F8E863004B9B25 /* SearchResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -191,6 +198,7 @@
 				1C16E32629E2585500F25425 /* PetsViewModel.swift */,
 				6B01BDE229E76B4F0065DB17 /* AddPostViewModel.swift */,
 				6B01BDE629E794270065DB17 /* GetPostsViewModel.swift */,
+				1CD8CCF329F8E742004B9B25 /* SearchUsersViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -212,6 +220,7 @@
 				1C16E32A29E26B7300F25425 /* PetProfile.swift */,
 				6B01BDE029E7698B0065DB17 /* AddPostView.swift */,
 				1C08C4C329ED19610044957D /* DiscoveryView.swift */,
+				1CD8CCF729F8F4A4004B9B25 /* SearchView.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -325,6 +334,7 @@
 				1C29EA8E29D6942200508B61 /* EditUserProfileViewModel.swift in Sources */,
 				1CD2EB8729F16F9D00CBBE19 /* utilities.swift in Sources */,
 				1C8D27E629C2586300406B99 /* EditProfileView.swift in Sources */,
+				1CD8CCF429F8E742004B9B25 /* SearchUsersViewModel.swift in Sources */,
 				1C2CACF829BBD6040014331D /* ContentView.swift in Sources */,
 				1CE70A9B29C20E0F009515FA /* ResetPasswordView.swift in Sources */,
 				1C1CFA3229D598DA00BEC3B1 /* SignUpViewModel.swift in Sources */,
@@ -333,6 +343,7 @@
 				6B01BDE329E76B4F0065DB17 /* AddPostViewModel.swift in Sources */,
 				1CE70AA929C2215B009515FA /* Post.swift in Sources */,
 				1C1CFA3629D59FF500BEC3B1 /* SignUpResponse.swift in Sources */,
+				1CD8CCF629F8E863004B9B25 /* SearchResponse.swift in Sources */,
 				1C08C4C429ED19610044957D /* DiscoveryView.swift in Sources */,
 				1CCFFEB529DE1E350065BF45 /* ResetPasswordViewModel.swift in Sources */,
 				1CE70A9D29C21250009515FA /* ForgetPasswordView.swift in Sources */,
@@ -342,6 +353,7 @@
 				1C09B51229D2629000270257 /* SignInViewModel.swift in Sources */,
 				1C1CFA3C29D5CDD700BEC3B1 /* VerificationCodeViewModel.swift in Sources */,
 				1CDCA98A29BBFE34007B930B /* SignUpView.swift in Sources */,
+				1CD8CCF829F8F4A4004B9B25 /* SearchView.swift in Sources */,
 				1CE70AAB29C221E6009515FA /* VerificationCodeView.swift in Sources */,
 				1CDCA98C29BC0086007B930B /* <.swift in Sources */,
 				1C08C4C629ED1D4D0044957D /* DiscoverPostResponse.swift in Sources */,
