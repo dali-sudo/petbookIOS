@@ -20,5 +20,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F1536566-57F0-4223-A32B-617CE19ED666"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Petbook/ViewController/MapView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "MapView"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "F1536566-57F0-4223-A32B-617CE19ED666 - 908bcb710eaa9ba0"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "property wrapper backing initializer of Petbook.MapView.region : __C.MKCoordinateRegion"
+                  moduleName = "Petbook"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user233432/Documents/GitHub/petbook/Petbook/ViewController/MapView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  uuid = "F1536566-57F0-4223-A32B-617CE19ED666 - 8037d8cc7d201402"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Petbook.MapView.init() -&gt; Petbook.MapView"
+                  moduleName = "Petbook"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user233432/Documents/GitHub/petbook/Petbook/ViewController/MapView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

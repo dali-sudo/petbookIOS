@@ -57,11 +57,7 @@ struct DiscoverView: View {
     }
 }
 
-struct MapView: View {
-    var body: some View {
-        Text("This is the Map View")
-    }
-}
+
 
 struct ChatView: View {
     var body: some View {

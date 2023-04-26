@@ -16,11 +16,12 @@ struct PetbookApp: App {
 
            // PetViewPager(id :"64222956e51b42f821d2f1ba")
             //LoginView()
-            
+          //  MapView()
+           
             if  let token = defaults.string(forKey: "userId")
             {
                // NavBarView()
-                 PetProfileView()
+                MapView()
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 
             }

@@ -138,13 +138,13 @@ struct PetProfileView: View {
             }
         )
         .onAppear {
-            //defaults.object(forKey: "petId")! as! String
-            viewModel.getPetImages(id: "6432329f338dd729660989b3"               ) { (uiImages) in
+           let id = defaults.object(forKey: "petId")! as! String
+            viewModel.getPetImages(id: id) { (uiImages) in
                             self.images = uiImages
                             isLoading = false
                             print(images.count)
                         }
-            viewModel.getPetProfile(petId: "6432329f338dd729660989b3") { result in
+            viewModel.getPetProfile(petId: id) { result in
                 switch result {
                 case .success(let pet):
                     petName = pet.name!

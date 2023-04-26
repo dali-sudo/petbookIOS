@@ -8,8 +8,10 @@ struct Card: Identifiable, Decodable {
 
 struct CardView: View {
     let pet: PetResponse
-
+    @State var selection : String?
+    let defaults = UserDefaults.standard
     var body: some View {
+        NavigationLink(destination: PetProfileView().navigationBarBackButtonHidden(true), tag: "P", selection: $selection) { EmptyView() }
         VStack {
             if let petPic = pet.petPic {
                 if let imageData = Data(base64Encoded: petPic),
@@ -37,6 +39,12 @@ struct CardView: View {
         .background(Color.white)
         .cornerRadius(20)
         .shadow(radius: 5)
+        .onTapGesture {
+            defaults.set(pet.id, forKey: "petId")
+            print("clicked on" , pet.petName)
+            selection = "P"
+            
+        }
     }
 }
 
