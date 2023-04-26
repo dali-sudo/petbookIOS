@@ -31,7 +31,7 @@ struct NavBarView: View {
                     Text("Map")
                         .foregroundColor(.yellow)
                 }
-            ChatView()
+         ChatListView()
                 .tabItem {
                     Image(systemName: "message")
                         .foregroundColor(.yellow)
