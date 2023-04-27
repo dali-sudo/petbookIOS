@@ -6,8 +6,3 @@
 //
 
 import Foundation
-struct Message {
-    let id: String
-    let type: String
-    let message: String
-}
