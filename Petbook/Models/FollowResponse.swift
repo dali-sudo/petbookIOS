@@ -10,7 +10,6 @@ import Foundation
 struct FollowResponse : Codable,Equatable ,Hashable {
                                         
     var  myid: String
-                                
     var followed: String
    
 }

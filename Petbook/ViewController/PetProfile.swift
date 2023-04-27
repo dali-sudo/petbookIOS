@@ -147,8 +147,12 @@ struct PetProfileView: View {
             viewModel.getPetProfile(petId: id) { result in
                 switch result {
                 case .success(let pet):
+                    
                     petName = pet.name!
-                    petAvatar = pet.avatar!
+                    if(pet.avatar != nil)
+                    {
+                        petAvatar = pet.avatar!
+                    }
                 case .failure(let error):
                     print("Error fetching pet details: \(error.localizedDescription)")
                 }

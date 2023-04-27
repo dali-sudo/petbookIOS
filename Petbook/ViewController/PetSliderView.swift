@@ -11,8 +11,9 @@ struct CardView: View {
     @State var selection : String?
     let defaults = UserDefaults.standard
     var body: some View {
-        NavigationLink(destination: PetProfileView().navigationBarBackButtonHidden(true), tag: "P", selection: $selection) { EmptyView() }
+       
         VStack {
+            NavigationLink(destination: PetProfileView(), tag: "P", selection: $selection) { EmptyView() }
             if let petPic = pet.petPic {
                 if let imageData = Data(base64Encoded: petPic),
                    let image = UIImage(data: imageData) {

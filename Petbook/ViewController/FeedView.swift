@@ -18,14 +18,7 @@ struct FeedView: View {
     @State private var isLoading: Bool = true
    
     @ObservedObject var viewModel: GetPostsViewModel=GetPostsViewModel()
-    let posts = [
-        Post(username: "johndoe", postImage: "post1", likes: 103, caption: "Beautiful view from my window."),
-        Post(username: "janedoe", postImage: "post2", likes: 232, caption: "Spent the weekend hiking with my dog."),
-        Post(username: "johndoe", postImage: "post3", likes: 527, caption: "Best meal I've had in a while!"),
-        Post(username: "janedoe", postImage: "post4", likes: 387, caption: "Just finished reading this book and it was amazing."),
-        Post(username: "johndoe", postImage: "post5", likes: 198, caption: "Celebrating my birthday with my friends."),
-        Post(username: "janedoe", postImage: "post6", likes: 467, caption: "Finally finished this painting after weeks of work."),
-    ]
+   
     var body: some View {
         NavigationView {
             ZStack{    if(isLoading){
@@ -36,9 +29,13 @@ struct FeedView: View {
                 
             
                 if (viewModel.Posts != nil)  {
-                    List(viewModel.Posts!, id: \._id) { post in
-               PostView(post: post)
+                    ScrollView
+                    {
+                      ForEach(viewModel.Posts!, id: \._id) { post in
+                   PostView(post: post)
+                        }
                     }
+                
     .navigationBarTitle("PetBook")
                 }
                               
@@ -103,7 +100,7 @@ struct PostView: View {
     @State var isLiked = false
     @ObservedObject var viewModel: GetPostsViewModel=GetPostsViewModel()
                             var body: some View {
-                                VStack(alignment: .leading) {
+                                VStack() {
                                     NavigationLink(destination: PetProfileView(), tag: "P", selection: $selection) { EmptyView() }
                                     Text(post.owner!.username)
                                        
@@ -139,7 +136,7 @@ struct PostView: View {
                                         }
                                     }
                                      
-                                        /*   Button(action: {
+                                           Button(action: {
                                                 if isLiked {
                                                     dislike()
                                                     print("unliked")
@@ -157,33 +154,36 @@ struct PostView: View {
                                                     .foregroundColor(isLiked ? .red : .gray)
                                                     .frame(width: 20, height: 20)
                                             }
-                                             */
+                                             
                                     
                                     HStack {
                                         Text("\(post.likescount) likes")
                                             .fontWeight(.bold)
+                                            .padding(.leading,  25)
                                         Spacer()
                                     }
                                     .padding(.horizontal, 10)
                                     .padding(.top, 10)
                                     ScrollView(.horizontal, showsIndicators: true) {
                                         HStack(spacing: 10) {
-                                            ForEach(post.tags!, id: \.id) { pet in
-                                                Button(action: {
-                                                    // GET HIM TO PETS PROFILE AND LOAD THE DATA OFTH EPET  THERE
-                                                     selection = "p"
-                                                    defaults.set(pet.id, forKey: "petId")
-                                                    
-                                                }){
+                                            ForEach(post.tags!, id: \._id) { pet in
+                                               
                                                     Text(pet.name)
                                                         .foregroundColor(Color.white )
                                                         .padding(.horizontal, 10)
                                                         .padding(.vertical, 5)
                                                         .background(Color.gray)
                                                         .cornerRadius(20)
-                                                }
+                                                
+                                                        .onTapGesture {
+                                                            print(pet._id)
+                                                            defaults.set(pet._id, forKey: "petId")
+                                                            selection = "P"
+                                                        }
+                                                
                                             }
                                         }
+                                        .padding(.leading, 25)
                                     
                                     Text(post.descreption)
                                         .padding(.horizontal, 10)

@@ -50,7 +50,7 @@ struct DiscoveryView: View {
                                  NavigationLink(destination: SearchView(), isActive: $isNavigating) {
                                      EmptyView()
                                  }
-                LazyVGrid(columns: columns, spacing: 3) {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum : 100))], spacing: 1) {
                     ForEach(posts, id: \.self){ post in
                         VStack {
                             if let postpic = post.image{
@@ -58,8 +58,9 @@ struct DiscoveryView: View {
                                    let image = UIImage(data: imageData) {
                                     Image(uiImage: image)
                                         .resizable()
-                                        .scaledToFit()
-                                        .aspectRatio(contentMode: ContentMode.fit)
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(maxWidth: 110, maxHeight: 100)
+                                        .clipped()
                                     
                                     
                                 }
@@ -67,8 +68,7 @@ struct DiscoveryView: View {
                         }
                     }
                 }
-                .padding(.horizontal)
-                .padding(.top, 20)
+               
                 
                     
                 }

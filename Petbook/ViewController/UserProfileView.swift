@@ -14,6 +14,7 @@ struct UserProfileView: View {
     @State private var showWrong  = false
     @State private var isLoading: Bool = true
     @State var id:String=""
+    @State var followsCount: Int = 0
 
     @State private var isFollowing:Bool=false
  
@@ -50,7 +51,7 @@ struct UserProfileView: View {
                                 .foregroundColor(.gray)
                         }
                         VStack(alignment: .leading) {
-                            Text(               String(viewModel.user!.user.followerscount)     )
+                            Text(String(followsCount))
                                 .font(.headline)
                                 .padding(.leading,5)
                             Text("Followers")
@@ -121,6 +122,7 @@ struct UserProfileView: View {
                    isLoading = false
                    switch result {
                    case .success(let u):
+                       followsCount=(viewModel.user?.user.followerscount)!
                        if let array = viewModel.user?.user               .followers {
                        for i in    array                   {
                            if i == id {
@@ -150,7 +152,7 @@ struct UserProfileView: View {
        switch result {
        case .success(let u):
          
-                
+           followsCount = followsCount + 1
            // Handle successful sign-in
           break
        isFollowing=true
@@ -170,7 +172,7 @@ struct UserProfileView: View {
        switch result {
        case .success(let u):
          
-                
+           followsCount = followsCount - 1
            // Handle successful sign-in
           break
        isFollowing=false
