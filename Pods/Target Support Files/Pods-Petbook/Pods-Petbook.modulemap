@@ -1,0 +1,6 @@
+framework module Pods_Petbook {
+  umbrella header "Pods-Petbook-umbrella.h"
+
+  export *
+  module * { export * }
+}

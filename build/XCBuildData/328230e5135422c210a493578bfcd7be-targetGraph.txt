@@ -1,0 +1,7 @@
+Target dependency graph (3 targets)
+Starscream in Pods, no dependencies
+Socket.IO-Client-Swift in Pods, depends on:
+Starscream in Pods (explicit)
+Pods-Petbook in Pods, depends on:
+Socket.IO-Client-Swift in Pods (explicit)
+Starscream in Pods (explicit)

@@ -9,7 +9,7 @@ import Foundation
 class ChatViewModel: ObservableObject {
     @Published var room:ChatRoomResponse?
       @Published var contacts:[ChatContactsResponse]?
-  
+    
         @Published var chatid: getChatResponse?
     
     let serverUrl1 =  Utilities.url + "/chat/get"
@@ -94,9 +94,13 @@ class ChatViewModel: ObservableObject {
              completion(.failure(NSError(domain: "Invalid server URL", code: 0, userInfo: nil)))
              return
          }
-         
+     
+           
+        var parameters = ["id": id,"message":message,"type":type,"senderid":senderid]
 
-                           let parameters = ["id": id,"message":message,"type":type,"senderid":senderid]
+                 
+                     
+                  
          var request = URLRequest(url: url)
          request.httpMethod = "POST"
          request.addValue("application/json", forHTTPHeaderField: "Content-Type")

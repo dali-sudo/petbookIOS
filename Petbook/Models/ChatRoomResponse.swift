@@ -16,9 +16,9 @@ struct ChatRoomResponse: Codable,Equatable {
     
    
 }
-struct chat: Codable,Equatable ,Identifiable {
+struct chat: Codable,Equatable {
   
-    var id  = UUID()                                  
+    var _id:String
     var message: String
 
     var  type: String

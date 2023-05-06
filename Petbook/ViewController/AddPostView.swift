@@ -149,14 +149,14 @@ struct AddPostView: View {
             print("appear")
             petViewModel.fetchCards(for: id!)
            
-        }.sheet(isPresented: $IsPickerShowing ) {
-            ImagePicker(selectedImage: $tempSelectedImage, isPicker: $IsPickerShowing )
-                .onDisappear {
-                    if let image = tempSelectedImage {
-                        images.append(image)
-                        tempSelectedImage = nil
-                    }
-                }
+                        }.sheet(isPresented: $IsPickerShowing ) {
+                            ImagePicker(selectedImage: $tempSelectedImage, isPicker: $IsPickerShowing )
+                                .onDisappear {
+                                    if let image = tempSelectedImage {
+                                        images.append(image)
+                                        tempSelectedImage = nil
+                                    }
+                                }
                 .onAppear {
                    
                     tempSelectedImage = selectedImage

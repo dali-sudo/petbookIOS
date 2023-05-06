@@ -21,12 +21,13 @@ struct ChatListView: View {
     @State private var isLoading: Bool = true
     @State var id:String=""
     @State var selectedChatId: String = ""
+    @State var selectedChatAvatar: String = ""
     @State var contacts:[GetPostsViewModel]?
     var body: some View {
         NavigationView {
             if(viewModel.contacts != nil){
                         List(viewModel.contacts!, id: \._id) { c in
-                            NavigationLink(destination: ChatRoomView(chatId:$selectedChatId))  {
+                            NavigationLink(destination: ChatRoomView(chatId:$selectedChatId,avatar:$selectedChatAvatar ))  {
                     HStack() {
                         
                         if let uiImage = UIImage(data: Data(base64Encoded: c.Users[0].avatar) ?? Data()) {
@@ -50,10 +51,11 @@ struct ChatListView: View {
                             print("selected")
                             print("chatid"+c._id)
                             selectedChatId = c._id
+                            selectedChatAvatar = c.Users[0].avatar
                         }
                 }                }
         }
-        .navigationBarTitle("PetBook ")
+        .navigationBarTitle("PetBook")
                             .onAppear{
                 let defaults = UserDefaults.standard
                 id = defaults.string(forKey: "userId")!

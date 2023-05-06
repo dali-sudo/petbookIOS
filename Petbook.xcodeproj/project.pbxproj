@@ -62,6 +62,7 @@
 		1CE70AA729C22143009515FA /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE70AA629C22143009515FA /* Message.swift */; };
 		1CE70AA929C2215B009515FA /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE70AA829C2215B009515FA /* Post.swift */; };
 		1CE70AAB29C221E6009515FA /* VerificationCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE70AAA29C221E6009515FA /* VerificationCodeView.swift */; };
+		257F11F591FBF365D56A2066 /* Pods_Petbook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 483FE16E9C55A09815D89E3D /* Pods_Petbook.framework */; };
 		4471A46929F9A4C9001EB952 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4471A46829F9A4C9001EB952 /* LocationManager.swift */; };
 		4471A46B29F9A7E8001EB952 /* MKCoordinateRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4471A46A29F9A7E8001EB952 /* MKCoordinateRegion.swift */; };
 		6B01BDE129E7698B0065DB17 /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B01BDE029E7698B0065DB17 /* AddPostView.swift */; };
@@ -71,6 +72,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		196E60916CD125586BC16258 /* Pods-Petbook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Petbook.debug.xcconfig"; path = "Target Support Files/Pods-Petbook/Pods-Petbook.debug.xcconfig"; sourceTree = "<group>"; };
 		1C078A5E29DE548200524C0B /* GetUserPostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserPostResponse.swift; sourceTree = "<group>"; };
 		1C078A6029DE551E00524C0B /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		1C08C4C329ED19610044957D /* DiscoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryView.swift; sourceTree = "<group>"; };
@@ -126,9 +128,11 @@
 		1CE70AA629C22143009515FA /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		1CE70AA829C2215B009515FA /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		1CE70AAA29C221E6009515FA /* VerificationCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeView.swift; sourceTree = "<group>"; };
+		3A8CA2A074DA7C089618CB7D /* Pods-Petbook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Petbook.release.xcconfig"; path = "Target Support Files/Pods-Petbook/Pods-Petbook.release.xcconfig"; sourceTree = "<group>"; };
 		4471A46729F9A304001EB952 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4471A46829F9A4C9001EB952 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		4471A46A29F9A7E8001EB952 /* MKCoordinateRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKCoordinateRegion.swift; sourceTree = "<group>"; };
+		483FE16E9C55A09815D89E3D /* Pods_Petbook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Petbook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B01BDE029E7698B0065DB17 /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
 		6B01BDE229E76B4F0065DB17 /* AddPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostViewModel.swift; sourceTree = "<group>"; };
 		6B01BDE629E794270065DB17 /* GetPostsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPostsViewModel.swift; sourceTree = "<group>"; };
@@ -141,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C16E32E29E26C7B00F25425 /* SwiftUIX in Frameworks */,
+				257F11F591FBF365D56A2066 /* Pods_Petbook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +157,8 @@
 			children = (
 				1C2CACF429BBD6040014331D /* Petbook */,
 				1C2CACF329BBD6040014331D /* Products */,
+				579F9CD71147200A5D7E0187 /* Pods */,
+				C6ED0DB2E0E3C244F1F58427 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -272,11 +279,29 @@
 			path = utils;
 			sourceTree = "<group>";
 		};
+		579F9CD71147200A5D7E0187 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				196E60916CD125586BC16258 /* Pods-Petbook.debug.xcconfig */,
+				3A8CA2A074DA7C089618CB7D /* Pods-Petbook.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		6B01BDE829E796E00065DB17 /* New Group */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = "New Group";
+			sourceTree = "<group>";
+		};
+		C6ED0DB2E0E3C244F1F58427 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				483FE16E9C55A09815D89E3D /* Pods_Petbook.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -286,9 +311,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1C2CAD0529BBD6050014331D /* Build configuration list for PBXNativeTarget "Petbook" */;
 			buildPhases = (
+				8145B1F7F15511E20AA7F1E5 /* [CP] Check Pods Manifest.lock */,
 				1C2CACEE29BBD6040014331D /* Sources */,
 				1C2CACEF29BBD6040014331D /* Frameworks */,
 				1C2CACF029BBD6040014331D /* Resources */,
+				9C81BD955495BD0AC06F05C2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -349,6 +376,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8145B1F7F15511E20AA7F1E5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Petbook-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9C81BD955495BD0AC06F05C2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Petbook/Pods-Petbook-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Petbook/Pods-Petbook-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Petbook/Pods-Petbook-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1C2CACEE29BBD6040014331D /* Sources */ = {
@@ -535,6 +604,7 @@
 		};
 		1C2CAD0629BBD6050014331D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 196E60916CD125586BC16258 /* Pods-Petbook.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -567,6 +637,7 @@
 		};
 		1C2CAD0729BBD6050014331D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3A8CA2A074DA7C089618CB7D /* Pods-Petbook.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
