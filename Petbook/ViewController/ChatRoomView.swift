@@ -22,7 +22,13 @@ struct ChatRoomView: View {
         Message(text: "How are you?", isMe: false),
         Message(text: "I'm good, thanks!", isMe: true)
     ]
-    
+    @ObservedObject var viewModel: ChatViewModel=ChatViewModel()
+    @State private var showAlert  = false
+    @State private var showWrong  = false
+    @State private var isLoading: Bool = true
+    @State var id:String=""
+    @Binding var chatId:String
+    @State private var chats: [chat] = []
     var body: some View {
         VStack {
             HStack{
@@ -35,26 +41,30 @@ struct ChatRoomView: View {
                 Text("username")
                 Spacer()
             }
-            List(messages) { message in
+            if(chats != nil){
+
+                ForEach(chats){ message in
                 HStack {
-                    if message.isMe {
-                        Spacer()
-                        Text(message.text)
-                            .padding(10)
-                            .foregroundColor(.white)
-                            .background(Color.orange)
-                            .cornerRadius(10)
-                    } else {
-                        Text(message.text)
-                            .padding(10)
-                            .foregroundColor(.white)
-                            .background(Color.gray)
-                            .cornerRadius(10)
-                        Spacer()
-                    }
+                                            if message.senderid==id {
+                                                if(message.type=="string"){
+                                                    Spacer()
+                                                    Text(message.message)
+                                                        .padding(10)
+                                                        .foregroundColor(.white)
+                                                        .background(Color.orange)
+                                                        .cornerRadius(10)
+                                                } }else {
+                                                    if(message.type=="string"){
+                                                Text(message.message)
+                                                    .padding(10)
+                                                    .foregroundColor(.white)
+                                                    .background(Color.gray)
+                                                    .cornerRadius(10)
+                                                Spacer()
+                                                    } }
                 }
             }
-            
+            }
             HStack {
                 TextField("New message...", text: $newMessageText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -64,13 +74,38 @@ struct ChatRoomView: View {
                 }
             }
             .padding()
-        }
+        }.onAppear{
+let defaults = UserDefaults.standard
+id = defaults.string(forKey: "userId")!
+print("id"+chatId)
+
+viewModel.getChat(id: chatId){ result in
+    isLoading = false
+    switch result {
+    case .success(let u):
+        chats=u.chat
+        // Handle successful sign-in
+        break
+        
+        
+    case .failure(let error):
+        // Handle sign                      -in error
+        showWrong = true
+        
+        print("Sign-up error:", error)
+        
+    }
+}
+}      .onChange(of: viewModel.room) { newValue in
+// Refresh view when user profile changes
+}
         .navigationTitle("Chat")
     }
 }
 
 struct ChatRoomView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatRoomView()
+        let name = Binding.constant("");
+        ChatRoomView( chatId:  name)
     }
 }

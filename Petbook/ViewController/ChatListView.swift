@@ -14,36 +14,72 @@ struct Pos: Identifiable {
 }
 
 struct ChatListView: View {
-    let posts = [        Pos(username: "user1", postImage: "post1"),        Pos(username: "user2", postImage: "post2"),        Pos(username: "user3", postImage: "post3"),        Pos(username: "user4", postImage: "post4")    ]
-
+    
+    @ObservedObject var viewModel: ChatViewModel=ChatViewModel()
+    @State private var showAlert  = false
+    @State private var showWrong  = false
+    @State private var isLoading: Bool = true
+    @State var id:String=""
+    @State var selectedChatId: String = ""
+    @State var contacts:[GetPostsViewModel]?
     var body: some View {
         NavigationView {
-            List(posts) { post in
-                NavigationLink(destination: ChatRoomView())  {
+            if(viewModel.contacts != nil){
+                        List(viewModel.contacts!, id: \._id) { c in
+                            NavigationLink(destination: ChatRoomView(chatId:$selectedChatId))  {
                     HStack() {
                         
-                        Image("Avatar")
-                            .resizable()
-                            .frame(width: 60, height: 60)
-                            .clipShape(Circle())
-                        VStack{
-                            Text(post.username)
-                                .font(.headline)
-                                .fontWeight(.bold)
-                                .foregroundColor(.primary)
-                                .padding(.leading, -20)
+                        if let uiImage = UIImage(data: Data(base64Encoded: c.Users[0].avatar) ?? Data()) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .frame(width: 40, height: 40) .clipShape(Circle()).aspectRatio(contentMode: .fill)
+                        }
                             
-                            Text("last message")
-                                .padding(.leading, 10)
-                            
-                        }; Spacer()
-                    }}
-            }
-            .navigationBarTitle("PetBook                    ")
+                            VStack{
+                                Text(c.Users[0].username)
+                                    .font(.headline)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.primary)
+                                    
+                                
+                                //  Text("last message")
+                                //.padding(.leading, 10)
+                                
+                            }; Spacer()
+                        }} .onTapGesture {
+                            print("selected")
+                            print("chatid"+c._id)
+                            selectedChatId = c._id
+                        }
+                }                }
         }
+        .navigationBarTitle("PetBook ")
+                            .onAppear{
+                let defaults = UserDefaults.standard
+                id = defaults.string(forKey: "userId")!
+                print("id"+id)
+                
+                viewModel.getContacts(id: id){ result in
+                    isLoading = false
+                    switch result {
+                    case .success(let u):
+                        
+                        // Handle successful sign-in
+                        break
+                        
+                        
+                    case .failure(let error):
+                        // Handle sign                      -in error
+                        showWrong = true
+                        
+                        print("Sign-up error:", error)
+                        
+                    }
+                }
+            }      .onChange(of: viewModel.contacts) { newValue in
+                // Refresh view when user profile changes
+            }             }
     }
-}
-
 
 struct ChatListView_Previews: PreviewProvider {
     static var previews: some View {

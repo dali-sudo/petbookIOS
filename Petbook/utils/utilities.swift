@@ -8,6 +8,8 @@
 import Foundation
 
  class Utilities {
+
     static let url = "http://172.17.5.221:9090"
+
 }
                                                 
