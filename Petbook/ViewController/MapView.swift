@@ -9,20 +9,40 @@
             @StateObject private var locationManager = LocationManager()
             @State var userLoc : CLLocation?
             @State private var zoomLevel: Double = 10000
-                                
+            @State private var selectedCoordinate: Coordinate?
+            @State private var showSheet = false
+
             struct Coordinate: Identifiable                          {
                 let id = UUID()
                 let coordinate: CLLocationCoordinate2D
                 let name : String?
+                let image : String?
+                let address : String?
             
             }
             
-    @State private var coords: [Coordinate] = []
-    let coordinates: [Coordinate] = [
-        Coordinate(coordinate: CLLocationCoordinate2D(latitude: 34, longitude: 9), name: "dd"),
-        Coordinate(coordinate: CLLocationCoordinate2D(latitude: 35, longitude: 9), name: "dd")
-       ]
+            private func coordinateTapped(_ coordinate: Coordinate) {
+                selectedCoordinate = Coordinate(coordinate: coordinate.coordinate,
+                                                            name: coordinate.name,
+                                                            image: "petIcon",
+                                                address: coordinate.address)
+              
+            }
+            struct RoundedCorner: Shape {
+                var radius: CGFloat
+                var corners: UIRectCorner
 
+                func path(in rect: CGRect) -> Path {
+                    let path = UIBezierPath(
+                        roundedRect: rect,
+                        byRoundingCorners: corners,
+                        cornerRadii: CGSize(width: radius, height: radius))
+                    return Path(path.cgPath)
+                }
+            }
+    @State private var coords: [Coordinate] = []
+   
+                                            
             private func updateRegion() {
                 if let location = locationManager.location {
                   
@@ -36,24 +56,21 @@
             var body: some View {
                 VStack {
                     if let region = region {
-                                    Map(coordinateRegion: $region, interactionModes: .all, showsUserLocation: true, annotationItems: coords) { annotation in
-                                        MapAnnotation(coordinate: annotation.coordinate) {
-                                            Button(action: {
-                                                // Handle annotation tap
-                                                print("Tapped on annotation \(annotation.name)")
-                                            }) {
-                                                VStack {
-                                                    Image("petIcon")
-                                                        .resizable()
-                                                        .frame(width: 50, height: 50)
-                                                    Text(annotation.name!)
-                                                        .font(.caption)
-                                                }
-                                            }
-                                        }
-                                    }
-                        .ignoresSafeArea()
-                        .onAppear {
+                                 Map(coordinateRegion: $region, interactionModes: .all, showsUserLocation: true, annotationItems: coords) { coordinate in
+                                     MapAnnotation(coordinate: coordinate.coordinate) {
+                                         Button(action: {
+                                             coordinateTapped(coordinate)
+                                             }, label: {
+                                                 Image("mapMarker")
+                                                     .resizable()
+                                                     .aspectRatio(contentMode: .fit)
+                                                     .frame(width: 30, height: 30)
+                                                     .background(Color.clear)
+                                             })
+                                       }
+                                 }
+                                 .ignoresSafeArea()
+                                 .onAppear {
                             updateRegion()
                         }
                         .onChange(of: zoomLevel) { _ in
@@ -89,6 +106,33 @@
 
                     }
                     Spacer()
+                    
+                    if let selectedCoordinate = selectedCoordinate {
+                        HStack {
+                            Image(selectedCoordinate.image ?? "")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 200, height: 200)
+                            VStack {
+                                
+                                Text(selectedCoordinate.name ?? "")
+                                Text(selectedCoordinate.address ?? "")
+                            }
+                           
+                        }
+                        .frame(height: 150)
+                        .padding()
+                        .background(Color.white)
+                        .clipShape(RoundedCorner(radius: 10, corners: [.topLeft, .topRight]))
+                        .padding()
+                        .onTapGesture {
+                            self.selectedCoordinate = nil
+                        }
+                        .transition(.move(edge: .bottom))
+                    }
+
+
+                    
                     HStack {
                         Spacer()
                         HStack {
@@ -119,6 +163,8 @@
                         .padding(.bottom, 15)
                     }
                 }
+               
+
             }
         }
                 

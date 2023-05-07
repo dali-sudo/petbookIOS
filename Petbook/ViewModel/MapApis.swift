@@ -39,15 +39,17 @@
 
                     var coordinates = [MapView.Coordinate]()
                                             for result in results {
-                                                if let geocodes = result["geocodes"] as? [String: Any],
-                                                   let mainGeocode = geocodes["main"] as? [String: Double],
-                                                   let latitude = mainGeocode["latitude"],
-                                                   let longitude = mainGeocode["longitude"],
-                                                   let name = result["name"] as? String
+                                                    if let geocodes = result["geocodes"] as? [String: Any],
+                                                       let mainGeocode = geocodes["main"] as? [String: Double],
+                                                       let latitude = mainGeocode["latitude"],
+                                                       let longitude = mainGeocode["longitude"],
+                                                       let name = result["name"] as? String,
+                                                       let location = result["location"] as? [String: Any],
+                                                       let address = location["formatted_address"] as? String
                                                 {
                                                     let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                                                     do {
-                                                        let coordinateObject = try MapView.Coordinate(coordinate: coordinate, name : name )
+                                                        let coordinateObject = try MapView.Coordinate(coordinate: coordinate, name : name , image : "petIcon", address : address)
                                                         coordinates.append(coordinateObject)
                                                     } catch {
                                                         print("Error: \(error.localizedDescription)")

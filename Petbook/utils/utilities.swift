@@ -9,7 +9,7 @@ import Foundation
 
  class Utilities {
 
-    static let url = "http://172.17.5.221:9090"
+    static let url = "https://4b1a-41-225-95-11.ngrok-free.app"
 
 }
                                                 
