@@ -4,7 +4,7 @@
 //
 //  Created by user233432 on 5/5/23.
 //
-
+import SocketIO
 import Foundation
 class ChatViewModel: ObservableObject {
     @Published var room:ChatRoomResponse?
@@ -166,4 +166,33 @@ class ChatViewModel: ObservableObject {
          
          task.resume()
      }
+   
+
+   func refresh(s: SocketIOClient,id:String) {
+   var socket: SocketIOClient
+                                            socket = s
+print("refresh")
+            socket.on("refresh") { data, _ in
+              print("refresh2")
+                        self.getChat(id: id){ result in
+                        
+                            switch result {
+                            case .success(let u):
+                                self.room=u
+                                // Handle successful sign-in
+                                break
+                                
+                                
+                            case .failure(let error):
+                                // Handle sign                      -in error
+                           
+                                
+                                print("Sign-up error:", error)
+                                
+                            
+                        }
+                    }
+                }
+            }
+        
 }

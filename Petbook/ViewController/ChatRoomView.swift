@@ -33,6 +33,7 @@ struct ChatRoomView: View {
     @State private var chats: [chat] = []
     @State private var selectedImage: UIImage?
     @State private var IsPickerShowing  = false
+    let socketIOManager = SocketIOManager()
     var body: some View {
         VStack {
             if(isLoading){
@@ -117,7 +118,20 @@ struct ChatRoomView: View {
 let defaults = UserDefaults.standard
 id = defaults.string(forKey: "userId")!
 print("id"+chatId)
-          
+           
+                    
+                socketIOManager.start(
+                    onConnect: {
+                        socketIOManager.config(id: id)
+                    },
+                    onReady: {
+                        viewModel.refresh(s: socketIOManager.socket, id: chatId)                    }
+                )
+                
+            
+                
+             
+                
 viewModel.getChat(id: chatId){ result in
     isLoading = false
     switch result {
@@ -136,8 +150,11 @@ viewModel.getChat(id: chatId){ result in
     }
 }                           
 }      .onChange(of: viewModel.room) { newValue in
-// Refresh view when user profile changes
-} .sheet(isPresented: $IsPickerShowing ) {
+print("change")
+    chats=newValue!.chat
+}.onDisappear {
+    self.socketIOManager.socket.disconnect()
+}                            .sheet(isPresented: $IsPickerShowing ) {
     ImagePicker(selectedImage: $tempSelectedImage, isPicker: $IsPickerShowing )
         .onDisappear {
             if let image = tempSelectedImage {
@@ -156,8 +173,15 @@ viewModel.getChat(id: chatId){ result in
 
        viewModel.sendMsg(id: chatId, message:newMessageText, type: "string", senderid: id){ result in
            isLoading = false
+           
            switch result {
            case .success(let u):
+               for chat in viewModel.room!.Users {
+                   if chat._id != id {
+                       print("mine"+id)
+                       print("to"+chatId)
+                       self.socketIOManager.socket.emit("send", chat._id)
+                   } }
                chats=u.chat
                newMessageText = ""
                break
