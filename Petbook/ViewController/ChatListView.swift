@@ -22,12 +22,13 @@ struct ChatListView: View {
     @State var id:String=""
     @State var selectedChatId: String = ""
     @State var selectedChatAvatar: String = ""
+    @State var selectedChatName: String = ""
     @State var contacts:[GetPostsViewModel]?
     var body: some View {
         NavigationView {
             if(viewModel.contacts != nil){
                         List(viewModel.contacts!, id: \._id) { c in
-                            NavigationLink(destination: ChatRoomView(chatId:$selectedChatId,avatar:$selectedChatAvatar ))  {
+                            NavigationLink(destination: ChatRoomView(chatId:$selectedChatId,avatar:$selectedChatAvatar,chatName: $selectedChatName ))  {
                     HStack() {
                         
                         if let uiImage = UIImage(data: Data(base64Encoded: c.Users[0].avatar) ?? Data()) {
@@ -52,6 +53,7 @@ struct ChatListView: View {
                             print("chatid"+c._id)
                             selectedChatId = c._id
                             selectedChatAvatar = c.Users[0].avatar
+                            selectedChatName = c.Users[0].username
                         }
                 }                }
         }

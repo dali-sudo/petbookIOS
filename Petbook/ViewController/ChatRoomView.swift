@@ -29,6 +29,7 @@ struct ChatRoomView: View {
     @State var id:String=""
     @Binding var chatId:String
     @Binding var avatar:String
+    @Binding var chatName:String
     @State private var tempSelectedImage: UIImage? = nil
     @State private var chats: [chat] = []
     @State private var selectedImage: UIImage?
@@ -49,7 +50,7 @@ struct ChatRoomView: View {
                 }
                     
                 if(viewModel.room != nil){
-                Text((viewModel.room?.Users[0].username)!)
+                Text(chatName)
                 Spacer()
                 }
             }
@@ -227,6 +228,6 @@ print("change")
 struct ChatRoomView_Previews: PreviewProvider {
     static var previews: some View {
         let name = Binding.constant("");
-        ChatRoomView( chatId:  name,avatar: name)
+        ChatRoomView( chatId:  name,avatar: name,chatName: name)
     }
 }
