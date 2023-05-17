@@ -102,7 +102,11 @@ struct PostView: View {
                             var body: some View {
                                 VStack() {
                                     NavigationLink(destination: PetProfileView(), tag: "P", selection: $selection) { EmptyView() }
-                                    Text(post.owner!.username)
+                                    if (post.owner != nil )
+                                    {
+                                        Text(post.owner!.username)
+                                    }
+                                   
                                        
                                        
                                     Spacer()
