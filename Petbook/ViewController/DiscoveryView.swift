@@ -24,7 +24,12 @@ struct DiscoveryView: View {
     let columns = [
         GridItem(.adaptive(minimum: 100))
     ]
-    
+                                
+    let gridLayout = [
+        GridItem(.flexible(), spacing: 8),
+        GridItem(.flexible(), spacing: 8),
+        GridItem(.flexible(), spacing: 8)
+    ]
     var body: some View {
         NavigationView {
         ScrollView {
@@ -50,7 +55,8 @@ struct DiscoveryView: View {
                                  NavigationLink(destination: SearchView(), isActive: $isNavigating) {
                                      EmptyView()
                                  }
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum : 100))], spacing: 1) {
+                  
+                            LazyVGrid(columns: gridLayout, spacing: 8) {
                     ForEach(posts, id: \.self){ post in
                         VStack {
                             if let postpic = post.image{
@@ -59,7 +65,7 @@ struct DiscoveryView: View {
                                     Image(uiImage: image)
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
-                                        .frame(maxWidth: 110, maxHeight: 100)
+                                        .frame(maxWidth: 140, maxHeight: 120)
                                         .clipped()
                                     
                                     

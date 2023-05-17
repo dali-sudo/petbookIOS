@@ -100,101 +100,106 @@ struct PostView: View {
     @State var isLiked = false
     @ObservedObject var viewModel: GetPostsViewModel=GetPostsViewModel()
                             var body: some View {
-                                VStack() {
-                                    NavigationLink(destination: PetProfileView(), tag: "P", selection: $selection) { EmptyView() }
-                                    if (post.owner != nil )
+                                VStack(alignment: .leading, spacing: 16) {
+                                          
+                                                  HStack{
+                                                     
+                                                                                      
+                                                      if let imageData = Data(base64Encoded: (post.owner?.avatar!)!) {
+                                                              if let image = UIImage(data: imageData) {
+                                                                  Image(uiImage: image)
+                                                                      .resizable()
+                                                                      .frame(width: 50, height: 50)
+                                                                      .clipShape(Circle())
+                                                              } else {
+                                                                  Image("Avatar")
+                                                                      .resizable()
+                                                                      .frame(width: 80, height: 80)
+                                                                      .clipShape(Circle())
+                                                              }
+                                                          }
+                                                      
+                                                      Text(post.owner!.username)
+                                                      
+                                              Spacer()
+                                              
+                                              Image(systemName: "ellipsis")
+                                                  .font(.headline)
+                                          }
+                                          .padding(.horizontal)
+                                    if post.images!.count != 0
                                     {
-                                        Text(post.owner!.username)
-                                    }
-                                   
-                                       
-                                       
-                                    Spacer()
-                                    if let postpic = post.images {
-                                        if let imageData = Data(base64Encoded: post.images![0]),
-                                           let image = UIImage(data: imageData) {
-                                            Image(uiImage: image)
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fill)
-                                                .frame(width: 300, height: 300)
-                                                .clipped()
-                                                .cornerRadius(20)
-                                                .overlay(
-                                                    VStack {
-                                                        Spacer()
-                                                        HStack {
-                                                            Image("profile")
-                                                                .resizable()
-                                                                .aspectRatio(contentMode: .fit)
-                                                                .clipShape(Circle())
-                                                                .frame(width: 30, height: 30)
-                                                           
-                                                            Image(systemName: "ellipsis")
-                                                                .foregroundColor(.white)
+                                        ScrollView(.horizontal, showsIndicators: false) {
+                                                    HStack(spacing: 10) {
+                                                        ForEach(post.images!, id: \.self) { image in
+                                                            if let postImages = image, let imageData = Data(base64Encoded: image), let image = UIImage(data: imageData) {
+                                                                Image(uiImage: image)
+                                                                    .resizable()
+                                                                    .scaledToFit()
+                                                                    .frame(width: UIScreen.main.bounds.width - 32)
+                                                                    .padding(.leading,16)
+                                                                   
                                                         }
-                                                        .padding(.bottom, 10)
                                                     }
-                                                    
-                                                    .padding(.bottom, -10)
-                                                )
-                                        }
-                                    }
-                                     
-                                           Button(action: {
-                                                if isLiked {
-                                                    dislike()
-                                                    print("unliked")
-                                                } else {
-                                                    like()
-                                                    print("liked")
                                                 }
-                                                self.hitTestDisabled = true // Disable hit testing
-                                                       DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                                           self.hitTestDisabled = false
-                                                
-                                            }
-                                            }) {
-                                                Image(systemName: isLiked ? "heart.fill" : "heart")
-                                                    .foregroundColor(isLiked ? .red : .gray)
-                                                    .frame(width: 20, height: 20)
-                                            }
-                                             
-                                    
-                                    HStack {
-                                        Text("\(post.likescount) likes")
-                                            .fontWeight(.bold)
-                                            .padding(.leading,  25)
-                                        Spacer()
                                     }
-                                    .padding(.horizontal, 10)
-                                    .padding(.top, 10)
-                                    ScrollView(.horizontal, showsIndicators: true) {
-                                        HStack(spacing: 10) {
-                                            ForEach(post.tags!, id: \._id) { pet in
-                                               
-                                                    Text(pet.name)
-                                                        .foregroundColor(Color.white )
-                                                        .padding(.horizontal, 10)
-                                                        .padding(.vertical, 5)
-                                                        .background(Color.gray)
-                                                        .cornerRadius(20)
-                                                
-                                                        .onTapGesture {
-                                                            print(pet._id)
-                                                            defaults.set(pet._id, forKey: "petId")
-                                                            selection = "P"
-                                                        }
-                                                
-                                            }
+                                      
                                         }
-                                        .padding(.leading, 25)
-                                    
+                                          
+                                          Button(action: {
+                                              if isLiked {
+                                                  dislike()
+                                                  print("unliked")
+                                              } else {
+                                                  like()
+                                                  print("liked")
+                                              }
+                                              self.hitTestDisabled = true // Disable hit testing
+                                              DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                                  self.hitTestDisabled = false
+                                              }
+                                          }) {
+                                              Image(systemName: isLiked ? "heart.fill" : "heart")
+                                                  .foregroundColor(isLiked ? .red : .gray)
+                                                  .frame(width: 30, height: 30)
+                                          }
+                                          
+                                          HStack {
+                                              Text("\(post.likescount) likes")
+                                                  .font(.headline)
+                                                  .fontWeight(.bold)
+                                                  .padding(.leading, 10)
+                                              Spacer()
+                                          }
+                                          
+                                          ScrollView(.horizontal, showsIndicators: false) {
+                                              HStack(spacing: 10) {
+                                                  ForEach(post.tags ?? [], id: \._id) { pet in
+                                                      Text(pet.name)
+                                                          .foregroundColor(.white)
+                                                          .font(.caption)
+                                                          .padding(.horizontal, 12)
+                                                          .padding(.vertical, 6)
+                                                          .background(Color.gray)
+                                                          .cornerRadius(20)
+                                                          .onTapGesture {
+                                                              print(pet._id)
+                                                              defaults.set(pet._id, forKey: "petId")
+                                                              selection = "P"
+                                                          }
+                                                  }
+                                              }
+                                              .padding(.leading, 10)
+                                          }
+                                          
                                     Text(post.descreption)
-                                        .padding(.horizontal, 10)
-                                        .padding(.top, 5)
-                                    
-                                    Spacer()
-                                    }   }.onAppear{
+                                              .font(.body)
+                                              .padding(.horizontal, 10)
+                                              .padding(.top, 5)
+                                          
+                                          Spacer()
+                                      
+                                  }.onAppear{
                                     let defaults = UserDefaults.standard
                                     let userid = defaults.string(forKey: "userId")!
                                     if let array = post.likes {
@@ -226,7 +231,7 @@ struct PostView: View {
            // Handle sign                      -in error
           // showWrong = true
         
-           print("get posts error error:", error)
+           print("like error error:", error)
          
        }
    }
