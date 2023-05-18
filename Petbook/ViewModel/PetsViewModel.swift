@@ -119,7 +119,7 @@ class PetsViewModel: ObservableObject {
                   
                     let decoder = JSONDecoder()
                     let petResponse = try decoder.decode(PetResponse.self, from: data)
-                    let pet = Pet(name: petResponse.petName, type: petResponse.petType, owner:petResponse.petOwner, avatar:petResponse.petPic, sexe: petResponse.sexe, age: petResponse.petAge)
+                    let pet = Pet(name: petResponse.petName, type: petResponse.petType, owner:petResponse.petOwner, race: petResponse.race, avatar:petResponse.petPic, sexe: petResponse.sexe, age: petResponse.petAge)
                     completion(.success(pet))
                     
                 } catch {

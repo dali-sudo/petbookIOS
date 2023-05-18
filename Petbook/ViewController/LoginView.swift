@@ -113,6 +113,7 @@ struct LoginView: View {
                             defaults.set(user.id, forKey: "userId")
                             defaults.set(user.password, forKey: "password")
                             defaults.set(user.token, forKey: "userToken")
+                            defaults.set(user.email, forKey: "email")
                             
                             defaults.set(user.avatar,forKey : "avatar")
                             // Sync the changes to disk
@@ -157,6 +158,7 @@ struct LoginView: View {
         }
         .padding()
         .navigationBarBackButtonHidden(true)
+        .navigationBarHidden(true)
     }
         
     }

@@ -11,6 +11,7 @@ struct Pet {
     let name: String?
     let type: String?
     let owner: String?
+    let race: String?
     let avatar: String?
     let sexe: String?
     let age: String?

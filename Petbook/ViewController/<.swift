@@ -98,11 +98,11 @@
                                 .padding(.horizontal,20)
                              
                                 
-                                    VStack(spacing: 25) {
+                                    VStack(spacing: 10) {
                           
-                            ProfileCellView(imageName: "help", name: "Help & Support ", description: "Here u find how to use the app",width: 60, height: 50)
+                            
                             ProfileCellView(imageName: "logout 2", name: "Logout", description: "",width: 50, height: 50, dest: "SignIn", isLogout: true)
-                            ProfileCellView(imageName: "", name: "About app", description: "Our Privacy Policy",width: 40, height: 40)
+                            ProfileCellView(imageName: "help", name: "About app", description: "Our Privacy Policy",width: 40, height: 40)
                           
                         }
                         .padding(.horizontal, 20)
@@ -140,15 +140,15 @@
                 let defaults = UserDefaults.standard
                 let userId = defaults.string(forKey: "userId")
                 
-                NavigationLink(destination: LoginView().navigationBarHidden(true), tag: "SignIn", selection: $selection) { EmptyView() }
+                    
                     if (userId != nil)
               
-                {
+                    {
                         NavigationLink(destination: PetViewPager(id :userId!), tag: "pets", selection: $selection) { EmptyView() }
                         
                     }
                 
-                
+                                                    
                 HStack {
                      
                     Image(imageName)

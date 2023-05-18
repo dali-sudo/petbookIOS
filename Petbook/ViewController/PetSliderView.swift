@@ -65,7 +65,8 @@ struct PetViewPager: View {
     @State private var notificationText = ""
     var id: String
     let defaults = UserDefaults.standard
-    
+    let dogRaces = ["German Shepherd", "Doberman", "Labrador Retriever"]
+    let catRaces = ["Siamese", "Persian", "Maine Coon"]
     
     var body: some View {
          
@@ -112,10 +113,26 @@ struct PetViewPager: View {
                         VStack {
                             TextField("Pet Name", text: $petName)
                                 .padding()
-                            TextField("Pet Type", text: $petType)
-                                .padding()
-                            TextField("Pet Race", text: $petRace)
-                                .padding()
+                            Picker("Pet Type", selection: $petType) {
+                                   Text("Dog").tag("Dog")
+                                   Text("Cat").tag("Cat")
+                               }
+                               .pickerStyle(MenuPickerStyle())
+                               .padding()
+
+                               Picker("Pet Race", selection: $petRace) {
+                                   if petType == "Dog" {
+                                       ForEach(dogRaces, id: \.self) { race in
+                                           Text(race).tag(race)
+                                       }
+                                   } else if petType == "Cat" {
+                                       ForEach(catRaces, id: \.self) { race in
+                                           Text(race).tag(race)
+                                       }
+                                   }
+                               }
+                               .pickerStyle(MenuPickerStyle())
+                               .padding()
                             HStack {
                                 Text("Pet Sex:")
                                 Picker(selection: $petSex, label: Text("")) {
@@ -164,10 +181,12 @@ struct PetViewPager: View {
                                         case .success(let petResponse):
                                             self.notificationText = "Pet added successfully"
                             showingNotification=true
+                                          
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                                               self.showingNotification = false
+                                                               showFormSheet = false
                                                           }
-                                            print("Pet added: \(petResponse)")
+                                            
                                         case .failure(let error):
                                             print("Error adding pet: \(error)")
                                         }

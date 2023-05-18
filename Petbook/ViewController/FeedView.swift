@@ -130,8 +130,13 @@ struct PostView: View {
                                                               }
                                                           }}
                                                       Button(action: {
-                                                          profileid=post.owner!._id
-                                                          condition=true
+                                                          if ((post.owner?._id) != nil)
+                                                          {
+                                                              profileid=post.owner!._id
+                                                              condition=true
+                                                          }
+                                                         
+                                                        
                                                       }) {
                                                           if let postOwner = post.owner {
                                                               Text(postOwner.username )}
@@ -226,7 +231,7 @@ struct PostView: View {
                                     let defaults = UserDefaults.standard
                                     let userid = defaults.string(forKey: "userId")!
                                     if let array = post.likes {
-                                    for i in    array                   {
+                                    for i in    array   {
                                         if i == userid {
                                         isLiked=true
                                             break // exit the loop once the ID is found

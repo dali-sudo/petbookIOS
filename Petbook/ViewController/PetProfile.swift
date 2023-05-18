@@ -12,6 +12,8 @@ struct PetProfileView: View {
     @State private var selectedImage: ImageInfo?
     @State var petAvatar : String?
     @State var petName : String?
+    @State var petType : String?
+    @State var petRace : String?
     @State var isLoading = true
     let defaults = UserDefaults.standard
     let columns = [
@@ -26,49 +28,51 @@ struct PetProfileView: View {
                       .fill(Color.yellow)
                       .frame(height: 150)
                       .ignoresSafeArea()
+                     
                 
                 VStack {
-                    if (petAvatar != nil  )
-                    {
+                    if petAvatar != nil {
                         if let imageData = Data(base64Encoded: petAvatar!),
-                                   let uiImage = UIImage(data: imageData)
-                    {
+                           let uiImage = UIImage(data: imageData)
+                        {
                             Image(uiImage: uiImage)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 100, height: 100)
                                 .clipShape(Circle())
-                        
-                    }
-                    }
-                        
-                    else {
-                            Image("petIcon")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 100, height: 100)
-                                .clipShape(Circle())
+                                .padding(.top,100)
+                              
+                        }
+                    } else {
+                        Image("petIcon")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 100, height: 100)
+                            .clipShape(Circle())
+                            .padding(.top,100)
+                           
                     }
                     
-                       
-                    if (petName  != nil )
-                    {
+                    if petName != nil {
                         Text(petName!)
                             .font(.title)
                             .foregroundColor(.black)
-                            .padding(.top, 5)
-                        
-                    }
-                    else {
+                        if  petRace != nil && petType != nil {
+                            Text("\(petRace!) \(petType!)")
+                                .font(.subheadline)
+                                .foregroundColor(.black)
+                        }
+                    } else {
                         Text("Undefined")
                             .font(.title)
                             .foregroundColor(.black)
-                            .padding(.top, 5)
                     }
-                   
                     
-                       
+                    // Other content if any
                 }
+                
+               
+
             }
             
             
@@ -103,6 +107,8 @@ struct PetProfileView: View {
                 
             Spacer()
         }
+       
+        .ignoresSafeArea()
         .overlay(
             Group {
                 if selectedImage != nil {
@@ -111,7 +117,7 @@ struct PetProfileView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .padding()
-                        
+                       /*
                         Text("gfdg")
                             .font(.headline)
                             .padding()
@@ -122,9 +128,11 @@ struct PetProfileView: View {
                             Text("Likes: 100")
                             Spacer()
                         }
+                       
                         .font(.subheadline)
                         .padding()
                         Spacer()
+                        */
                     }
                     .frame(width: 300, height: 400)
                     .background(Color.white)
@@ -147,8 +155,19 @@ struct PetProfileView: View {
             viewModel.getPetProfile(petId: id) { result in
                 switch result {
                 case .success(let pet):
-                    
-                    petName = pet.name!
+                    if (pet.type != nil)
+                    {
+                        petType = pet.type!
+                    }
+                    if (pet.race != nil)
+                    {
+                        petRace = pet.race!
+                    }
+                    if (pet.name != nil)
+                    {
+                        petName = pet.name!
+                    }
+                   
                     if(pet.avatar != nil)
                     {
                         petAvatar = pet.avatar!
