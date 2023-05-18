@@ -20,6 +20,8 @@ struct DiscoveryView: View {
     private let searchDelay = 0.5 // Adjust this value as needed
     @State private var isEditing = false
     @State public  var  isNavigating = false
+    @State public  var condition = false
+    @State public  var selectid = ""
           
     let columns = [
         GridItem(.adaptive(minimum: 100))
@@ -55,10 +57,18 @@ struct DiscoveryView: View {
                                  NavigationLink(destination: SearchView(), isActive: $isNavigating) {
                                      EmptyView()
                                  }
-                  
+                    NavigationLink(destination: DiscoverSinglePostView( postid: selectid), isActive: $condition) {
+                        EmptyView()
+                    }
                             LazyVGrid(columns: gridLayout, spacing: 8) {
                     ForEach(posts, id: \.self){ post in
                         VStack {
+                            
+                            Button(action: {
+                                selectid=post._id
+                            condition=true
+                            })
+                            {
                             if let postpic = post.image{
                                 if let imageData = Data(base64Encoded: postpic),
                                    let image = UIImage(data: imageData) {
@@ -70,7 +80,7 @@ struct DiscoveryView: View {
                                     
                                     
                                 }
-                            }
+                            } }
                         }
                     }
                 }

@@ -10,12 +10,16 @@ import SwiftUI
 struct UserProfileView: View {
     @Binding  var userid:String
     @ObservedObject var viewModel: ProfileViewModel=ProfileViewModel()
+    @ObservedObject var chatviewModel: ChatViewModel=ChatViewModel()
     @State private var showAlert  = false
     @State private var showWrong  = false
     @State private var isLoading: Bool = true
     @State var id:String=""
+    @State var chatid:String=""
+    @State var avatar:String=""
+    @State var username:String=""
     @State var followsCount: Int = 0
-
+    @State var condition:Bool=false
     @State private var isFollowing:Bool=false
  
     var body: some View {
@@ -24,8 +28,12 @@ struct UserProfileView: View {
                     ProgressView()
                 }
                 else{
-                    
-                
+                                            
+                    NavigationLink(destination: ChatRoomView(chatId:$chatid,avatar:$avatar,chatName: $username ), isActive: $condition) {
+                        EmptyView()
+                    }
+                    .hidden()
+
                             HStack {
                                 VStack{ if let uiImage = UIImage(data: Data(base64Encoded: viewModel.user!.user.avatar) ?? Data()) {
                         Image(uiImage: uiImage)
@@ -70,7 +78,7 @@ struct UserProfileView: View {
                                     HStack {
                                         if id != userid {
                                                     Button("Message") {
-                                                        // Handle message button tap
+                                                      message()
                                                     }
                                                     .padding(6)
                                                            .background(Color.yellow)
@@ -186,6 +194,30 @@ struct UserProfileView: View {
        }
    }
     }
+    private func message(){
+        print("message")
+        chatviewModel.findorcreate(id1: id, id2: userid){ result in
+     
+       switch result {
+       case .success(let u):
+           avatar=viewModel.user!.user.avatar
+       username=viewModel.user!.user.username
+           chatid=u.id
+       condition=true
+           // Handle successful sign-in
+          break
+       isFollowing=false
+       
+       case .failure(let error):
+           // Handle sign                      -in error
+           showWrong = true
+        
+           print("Sign-up error:", error)
+         
+       }
+   }
+    }
+
 }
                 
 

@@ -8,12 +8,13 @@
 import Foundation
 class GetPostsViewModel: ObservableObject {
     @Published var Posts: [GetPostResponseData]?
+    @Published var SinglePost: GetPostResponseData?
     @Published var RandomPosts: [DiscoverPostResponse]? 
     @Published var liked: LikeResponse?
     
     
     let serverUrl =  Utilities.url + "/post/getAll"
-    
+    let serverUrl5 = Utilities.url + "/post/discoverPost"
     let likeserverUrl =  Utilities.url + "/post/like"
     let dislikeserverUrl =  Utilities.url + "/post/unlike"
     func getPosts(completion: @escaping (Result<[GetPostResponseData], Error>) -> Void) {
@@ -166,4 +167,41 @@ class GetPostsViewModel: ObservableObject {
         
         task.resume()
     }
+    func getSinglePost(postid:String,completion: @escaping (Result<GetPostResponseData, Error>) -> Void) {
+         guard let url = URL(string: serverUrl5) else {
+             completion(.failure(NSError(domain: "Invalid server URL", code: 0, userInfo: nil)))
+             return
+         }
+         
+
+        let parameters = ["id": postid]
+                                
+         var request = URLRequest(url: url)
+         request.httpMethod = "POST"
+         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try? JSONSerialization.data(withJSONObject: parameters)
+         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+             if let error = error {
+                 completion(.failure(error))
+                 return
+             }
+             
+             guard let data = data else {
+                 completion(.failure(NSError(domain: "No data returned from server", code: 0, userInfo: nil)))
+                 return
+             }
+             
+             do {
+                 print(data)
+                 let decoder = JSONDecoder()
+                 let u = try decoder.decode(GetPostResponseData.self, from: data)
+                 self.SinglePost=u;
+                 completion(.success(u))
+             } catch {
+                 completion(.failure(error))
+             }
+         }
+         
+         task.resume()
+     }
 }

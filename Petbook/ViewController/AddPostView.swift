@@ -111,12 +111,12 @@ struct AddPostView: View {
                     Button(action: {
                        
                             isLoading = true
-                            viewModel.AddPost(owner: "63a8553948dccc27aba167de", descreption:postText, images: images,petIds: selectedPetIds) { result in
+                        viewModel.AddPost(owner: id!, descreption:postText, images: images,petIds: selectedPetIds) { result in
                                 isLoading = false
                                 switch result {
                                 case .success(let user):
                                     alertMessage = "Post Created!"
-                                    alertTitle = "Success"    ;                           showsucces = true
+                                    alertTitle = "Success"    ;                                                                     showsucces = true
                             case .failure(let error):
                                     // Handle sign
                                     alertMessage = "Error"

@@ -98,13 +98,22 @@ struct PostView: View {
     let defaults = UserDefaults.standard
     @State private var selection: String? = nil
     @State var isLiked = false
+@State var condition = false
+    @State var profileid = ""
     @ObservedObject var viewModel: GetPostsViewModel=GetPostsViewModel()
                             var body: some View {
+                                NavigationLink(destination: UserProfileView(userid: $profileid ), isActive: $condition) {
+                                    EmptyView()
+                                }
+                                .hidden()
                                 VStack(alignment: .leading, spacing: 16) {
-                                          
+                                 
                                                   HStack{
                                                      
-                                                                                      
+                                                      Button(action: {
+                                                          profileid=post.owner!._id
+                                                          condition=true
+                                                      }) {
                                                       if let imageData = Data(base64Encoded: (post.owner?.avatar!)!) {
                                                               if let image = UIImage(data: imageData) {
                                                                   Image(uiImage: image)
@@ -118,15 +127,20 @@ struct PostView: View {
                                                                       .clipShape(Circle())
                                                               }
                                                           }
-                                                      
+                                                      }
+                                                      Button(action: {
+                                                          profileid=post.owner!._id
+                                                          condition=true
+                                                      }) {
                                                       Text(post.owner!.username)
-                                                      
+                                                      }
                                               Spacer()
                                               
                                               Image(systemName: "ellipsis")
                                                   .font(.headline)
                                           }
                                           .padding(.horizontal)
+                                    
                                     if post.images!.count != 0
                                     {
                                         ScrollView(.horizontal, showsIndicators: false) {
