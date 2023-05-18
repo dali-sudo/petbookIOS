@@ -15,7 +15,7 @@
               
             VStack {
                 NavigationLink(destination: EditProfileView(), tag: "EditUP", selection: $selection) { EmptyView() }
-                NavigationLink(destination: LoginView(), tag: "SignIn", selection: $selection) { EmptyView() }
+                NavigationLink(destination: LoginView().navigationBarHidden(true), tag: "SignIn", selection: $selection) { EmptyView() }
                 NavigationLink(destination: PetViewPager(id :userId), tag: "pets", selection: $selection) { EmptyView() }
                 HStack {
                     
@@ -131,15 +131,14 @@
             var dest: String?
             var isLogout : Bool? = false
             @State private var selection: String? = nil
-            
+            @Environment(\.presentationMode) var presentationMode
             
             var body: some View {
                 
-              
-                
+               
                 let defaults = UserDefaults.standard
                 let userId = defaults.string(forKey: "userId")
-                
+                NavigationLink(destination: LoginView().navigationBarHidden(true), tag: "SignIn", selection: $selection) { EmptyView() }
                     
                     if (userId != nil)
               
@@ -172,8 +171,7 @@
                     print("clicked")
                     if (isLogout!) {
                         defaults.removeObject(forKey: "userId")
-                       
-                        
+                        presentationMode.wrappedValue.dismiss()
                     }
                     if (dest != nil) {
                         selection = dest

@@ -42,6 +42,7 @@
 		1CB52CA52A059AAA00ABBA2C /* ChatRoomResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB52CA42A059AAA00ABBA2C /* ChatRoomResponse.swift */; };
 		1CB52CA72A059B1100ABBA2C /* getChatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB52CA62A059B1100ABBA2C /* getChatResponse.swift */; };
 		1CB52CA92A059B3E00ABBA2C /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB52CA82A059B3E00ABBA2C /* ChatViewModel.swift */; };
+		1CCD46712A16B7CC00B2C5E8 /* PullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCD46702A16B7CC00B2C5E8 /* PullToRefreshView.swift */; };
 		1CCFA96729F99FB80019368D /* FollowResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCFA96629F99FB80019368D /* FollowResponse.swift */; };
 		1CCFA96929F9CAF90019368D /* LikeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCFA96829F9CAF90019368D /* LikeResponse.swift */; };
 		1CCFFEB129DE11F20065BF45 /* NavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCFFEB029DE11F20065BF45 /* NavBarView.swift */; };
@@ -110,6 +111,7 @@
 		1CB52CA42A059AAA00ABBA2C /* ChatRoomResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomResponse.swift; sourceTree = "<group>"; };
 		1CB52CA62A059B1100ABBA2C /* getChatResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getChatResponse.swift; sourceTree = "<group>"; };
 		1CB52CA82A059B3E00ABBA2C /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		1CCD46702A16B7CC00B2C5E8 /* PullToRefreshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefreshView.swift; sourceTree = "<group>"; };
 		1CCFA96629F99FB80019368D /* FollowResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowResponse.swift; sourceTree = "<group>"; };
 		1CCFA96829F9CAF90019368D /* LikeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeResponse.swift; sourceTree = "<group>"; };
 		1CCFFEB029DE11F20065BF45 /* NavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarView.swift; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 				4471A46829F9A4C9001EB952 /* LocationManager.swift */,
 				4471A46A29F9A7E8001EB952 /* MKCoordinateRegion.swift */,
 				1CEE2ABC2A073C2400801C1B /* SocketIOManager.swift */,
+				1CCD46702A16B7CC00B2C5E8 /* PullToRefreshView.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -484,6 +487,7 @@
 				1C08C4C629ED1D4D0044957D /* DiscoverPostResponse.swift in Sources */,
 				1CE70AA729C22143009515FA /* Message.swift in Sources */,
 				6B01BDEA29E796EE0065DB17 /* GetPostResponseData.swift in Sources */,
+				1CCD46712A16B7CC00B2C5E8 /* PullToRefreshView.swift in Sources */,
 				1CB52CA32A059A8700ABBA2C /* ChatContactsResponse.swift in Sources */,
 				1CCFFEB129DE11F20065BF45 /* NavBarView.swift in Sources */,
 				1CE70AA529C2211A009515FA /* Pet.swift in Sources */,

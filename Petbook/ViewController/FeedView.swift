@@ -30,9 +30,14 @@ struct FeedView: View {
             
                 if (viewModel.Posts != nil)  {
                     ScrollView
-                    {
-                      ForEach(viewModel.Posts!, id: \._id) { post in
-                   PostView(post: post)
+                    { VStack(spacing: 0)
+                        {
+                            PullToRefreshView { refresh() }
+                            ForEach(viewModel.Posts!, id: \._id) { post in
+                         PostView(post: post)
+                            // ScrollView content
+                        }
+                    
                         }
                     }
                 
@@ -85,7 +90,27 @@ struct FeedView: View {
             
         }
     }
-  
+    private func refresh(){
+       print("refresh")
+        viewModel.getPosts(){ result in
+       isLoading = false
+       switch result {
+       case .success(let u):
+         
+                
+           // Handle successful sign-in
+          break
+                 
+       
+       case .failure(let error):
+           // Handle sign                      -in error
+          // showWrong = true
+        
+           print("get posts error error:", error)
+         
+       }
+   }
+    }
 }
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
@@ -154,7 +179,10 @@ struct PostView: View {
                                                   .font(.headline)
                                           }
                                           .padding(.horizontal)
-                                    
+                                    Text(post.descreption)
+                                              .font(.body)
+                                              .padding(.horizontal, 10)
+                                            
                                     if post.images!.count != 0
                                     {
                                         ScrollView(.horizontal, showsIndicators: false) {
@@ -220,16 +248,19 @@ struct PostView: View {
                                               .padding(.leading, 10)
                                           }
                                           
-                                    Text(post.descreption)
-                                              .font(.body)
-                                              .padding(.horizontal, 10)
-                                              .padding(.top, 5)
+                                   
                                           
                                           Spacer()
                                       
                                   }.onAppear{
                                     let defaults = UserDefaults.standard
-                                    let userid = defaults.string(forKey: "userId")!
+                                      var userid=""
+                                      if defaults.string(forKey: "userId") != nil{
+                                 
+                                    userid = defaults.string(forKey: "userId")!
+                                      }
+                                      
+                                      
                                     if let array = post.likes {
                                     for i in    array   {
                                         if i == userid {
@@ -264,6 +295,7 @@ struct PostView: View {
        }
    }
     }
+   
     private func dislike(){
         let defaults = UserDefaults.standard
         let userid = defaults.string(forKey: "userId")!

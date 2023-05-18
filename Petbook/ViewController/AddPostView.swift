@@ -109,7 +109,7 @@ struct AddPostView: View {
                     },
                 trailing:
                     Button(action: {
-                       
+                        if(postText != ""){
                             isLoading = true
                         viewModel.AddPost(owner: id!, descreption:postText, images: images,petIds: selectedPetIds) { result in
                                 isLoading = false
@@ -123,7 +123,7 @@ struct AddPostView: View {
                                     alertTitle = "Error"    ;                           showsucces = true
                                 }
                             }
-                        
+                        }
                         
                         
                     }) {
