@@ -35,6 +35,7 @@ struct ChatRoomView: View {
     @State private var selectedImage: UIImage?
     @State private var IsPickerShowing  = false
     let socketIOManager = SocketIOManager()
+    @State private var shouldScrollToBottom = true
     var body: some View {
         VStack {
             if(isLoading){
@@ -55,7 +56,7 @@ struct ChatRoomView: View {
                 }
             }
             if(chats != nil){
-
+                ScrollViewReader             { proxy   in
                 List(chats, id: \._id){ message in
                 HStack {
                                             if message.senderid==id { Spacer()
@@ -95,7 +96,18 @@ struct ChatRoomView: View {
                                                 Spacer()
                                             }
                 }
-            }
+            } .listStyle(PlainListStyle())
+                    .onChange(of: chats) { _ in
+                        proxy.scrollTo(chats.count-1)
+                    }
+                    .onAppear {
+                    
+                            proxy.scrollTo(chats.count-1)
+                                           
+                    }
+                }
+                
+            
             }
             HStack {
                 TextField("New message...", text: $newMessageText)
@@ -119,7 +131,8 @@ struct ChatRoomView: View {
 let defaults = UserDefaults.standard
 id = defaults.string(forKey: "userId")!
 print("id"+chatId)
-           
+                
+                                   
                     
                 socketIOManager.start(
                     onConnect: {
@@ -184,6 +197,7 @@ print("change")
                        self.socketIOManager.socket.emit("send", chat._id)
                    } }
                chats=u.chat
+              
                newMessageText = ""
                break
                
@@ -208,6 +222,12 @@ print("change")
                     isLoading = false
                     switch result {
                     case .success(let u):
+                        for chat in viewModel.room!.Users {
+                            if chat._id != id {
+                                print("mine"+id)
+                                print("to"+chatId)
+                                self.socketIOManager.socket.emit("send", chat._id)
+                            } }
                         chats=u.chat
                         newMessageText = ""
                         break
@@ -223,8 +243,8 @@ print("change")
                 }
                 
             }
-        }}
-}
+        } }
+  }
 struct ChatRoomView_Previews: PreviewProvider {
     static var previews: some View {
         let name = Binding.constant("");

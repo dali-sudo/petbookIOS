@@ -114,26 +114,35 @@ struct PostView: View {
                                                           profileid=post.owner!._id
                                                           condition=true
                                                       }) {
-                                                      if let imageData = Data(base64Encoded: (post.owner?.avatar!)!) {
-                                                              if let image = UIImage(data: imageData) {
-                                                                  Image(uiImage: image)
-                                                                      .resizable()
-                                                                      .frame(width: 50, height: 50)
-                                                                      .clipShape(Circle())
-                                                              } else {
-                                                                  Image("Avatar")
-                                                                      .resizable()
-                                                                      .frame(width: 80, height: 80)
-                                                                      .clipShape(Circle())
+                                                          if(post.owner?.avatar != nil){
+                                                              if let imageData = Data(base64Encoded: (post.owner?.avatar!)!) {
+                                                                  if let image = UIImage(data: imageData) {
+                                                                      Image(uiImage: image)
+                                                                          .resizable()
+                                                                          .frame(width: 50, height: 50)
+                                                                          .clipShape(Circle())
+                                                                  } else {
+                                                                      Image("Avatar")
+                                                                          .resizable()
+                                                                          .frame(width: 80, height: 80)
+                                                                          .clipShape(Circle())
+                                                                  }
                                                               }
-                                                          }
-                                                      }
+                                                          }}
                                                       Button(action: {
                                                           profileid=post.owner!._id
                                                           condition=true
                                                       }) {
-                                                      Text(post.owner!.username)
+                                                          if let postOwner = post.owner {
+                                                              Text(postOwner.username )}
+                                                              // Use the username variable
+                                                     
+                                                      else {
+                                                          Text("username")  // Handle the case when post.owner is nil
+                                                              // You can provide a default value or display an error message
+                                                          }
                                                       }
+                                                      
                                               Spacer()
                                               
                                               Image(systemName: "ellipsis")
