@@ -22,8 +22,7 @@ struct PetbookApp: App {
             {
                 
                 NavBarView()
-                //MapView()
-                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 
             }
             

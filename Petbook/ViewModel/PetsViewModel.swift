@@ -11,42 +11,48 @@ import UIKit
 class PetsViewModel: ObservableObject {
     @Published var OwnedPets: [PetResponse] = []
     @Published var petAdded = false
-    @Published var isLoading = false
+    @Published var isLoading = true
      @Published var errorMessage = ""
-      func fetchCards(for id: String) {
-          print(id)
-              guard let url = URL(string: Utilities.url + "/pet/getAll") else {
-                  fatalError("Invalid URL")
-                  
-              }
-              
-          let parameters = ["owner": id]
-          
-          var request = URLRequest(url: url)
-          request.httpMethod = "POST"
-          request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-          request.httpBody = try? JSONSerialization.data(withJSONObject: parameters)
-                                
-              let session = URLSession.shared
-              let task = session.dataTask(with: request) { data, response, error in
-                  guard let data = data else {
-                      fatalError("No data in response: \(error?.localizedDescription ?? "Unknown error")")
-                  }
-                  
-                  do {
-                      self.isLoading = false
-                      let decoder = JSONDecoder()
-                      let cardsData = try decoder.decode([PetResponse].self, from: data)
-                      print(cardsData.count , "******************")
-                      DispatchQueue.main.async {
-                          self.OwnedPets = cardsData
-                      }
-                  } catch {
-                      fatalError("Error decoding response: \(error.localizedDescription)")
-                  }
-              }
-              task.resume()
-          }
+    func fetchCards(for id: String, completion: @escaping (Result<[PetResponse], Error>) -> Void) {
+        print(id)
+        guard let url = URL(string: Utilities.url + "/pet/getAll") else {
+            completion(.failure(URLError(.badURL)))
+            return
+        }
+        
+        let parameters = ["owner": id]
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try? JSONSerialization.data(withJSONObject: parameters)
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data in response"])))
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                let cardsData = try decoder.decode([PetResponse].self, from: data)
+                print(cardsData.count, "******************")
+                DispatchQueue.main.async {
+                    completion(.success(cardsData))
+                }
+            } catch {
+                completion(.failure(error))
+            }
+        }
+        task.resume()
+    }
+
     
     
     func addPet(owner: String, petName: String, petType: String, petRace: String, petSex: String, petBirthday: Date, petAvatar: UIImage?, completion: @escaping (Result<PetResponse, Error>) -> Void) {

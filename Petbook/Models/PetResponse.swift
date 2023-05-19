@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PetResponse: Codable,Identifiable{
+struct PetResponse: Codable,Identifiable,Equatable{
     var id: String?
     var petName: String?
     var petType: String?

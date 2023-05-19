@@ -63,24 +63,35 @@ struct PetViewPager: View {
     @State private var image: UIImage? = nil
     @State private var showingNotification = false
     @State private var notificationText = ""
+    @State private var isLoading = true
+    @State var OwnedPetss: [PetResponse] = []
     var id: String
     let defaults = UserDefaults.standard
     let dogRaces = ["German Shepherd", "Doberman", "Labrador Retriever"]
     let catRaces = ["Siamese", "Persian", "Maine Coon"]
     
     var body: some View {
-         
+       
       
         ZStack {
             Color.white
                 .edgesIgnoringSafeArea(.all)
-            
-            TabView {
-                ForEach(petViewModel.OwnedPets) { card in
-                    CardView(pet: card)
-                }
+           
+            if (isLoading)
+            {
+                ProgressView()
             }
-            .tabViewStyle(PageTabViewStyle())
+            else {
+                TabView {
+                    ForEach(OwnedPetss) { card in
+                        CardView(pet: card)
+                    }
+                }
+                .tabViewStyle(PageTabViewStyle())
+            }
+            
+            
+            
             
             if showButton {
                 VStack {
@@ -104,8 +115,28 @@ struct PetViewPager: View {
         }
         .onAppear {
             petViewModel.fetchCards(for: id)
+            { result in
+               switch result {
+               case .success(let cardsData):
+                   // Handle the successful result containing an array of PetResponse objects
+                   isLoading=false
+                   OwnedPetss=cardsData
+                   print(OwnedPetss.count)
+                   print(cardsData.count)
+                   // Update your UI or perform any other actions with the fetched data
+                   
+               case .failure(let error):
+                   // Handle the error case
+                   print("Error fetching cards:", error.localizedDescription)
+                   
+                   // Display an error message to the user or handle the error in an appropriate way
+               }
+           }
             showButton = true
         }
+       
+
+      
         .sheet(isPresented: $showFormSheet, content: {
             NavigationView {
                 Form{
@@ -181,7 +212,7 @@ struct PetViewPager: View {
                                         case .success(let petResponse):
                                             self.notificationText = "Pet added successfully"
                             showingNotification=true
-                                          
+                                            OwnedPetss.append(petResponse)
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                                               self.showingNotification = false
                                                                showFormSheet = false

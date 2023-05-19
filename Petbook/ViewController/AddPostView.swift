@@ -26,6 +26,7 @@ struct AddPostView: View {
     @ObservedObject var petViewModel = PetsViewModel()
     @State private var selectedPetId: String?
     @State private var selectedPetIds: [String] = []
+    @State var OwnedPetss: [PetResponse] = []
     var body: some View {
         let defaults = UserDefaults.standard
         let id = defaults.string(forKey: "userId") ;
@@ -73,7 +74,7 @@ struct AddPostView: View {
                                         .font(.headline)
                                     ScrollView(.horizontal, showsIndicators: true) {
                                         HStack(spacing: 10) {
-                                            ForEach(petViewModel.OwnedPets, id: \.id) { pet in
+                                            ForEach(OwnedPetss, id: \.id) { pet in
                                                 Button(action: {
                                                     if selectedPetIds.contains(pet.id!) {
                                                                        selectedPetIds.removeAll { $0 == pet.id }
@@ -148,6 +149,23 @@ struct AddPostView: View {
         }.onAppear {
             print("appear")
             petViewModel.fetchCards(for: id!)
+            { result in
+               switch result {
+               case .success(let cardsData):
+                   // Handle the successful result containing an array of PetResponse objects
+                   
+                   OwnedPetss=cardsData
+                   print(OwnedPetss.count)
+                   print(cardsData.count)
+                   // Update your UI or perform any other actions with the fetched data
+                   
+               case .failure(let error):
+                   // Handle the error case
+                   print("Error fetching cards:", error.localizedDescription)
+                   
+                   // Display an error message to the user or handle the error in an appropriate way
+               }
+           }
            
                         }.sheet(isPresented: $IsPickerShowing ) {
                             ImagePicker(selectedImage: $tempSelectedImage, isPicker: $IsPickerShowing )

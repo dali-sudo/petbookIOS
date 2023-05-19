@@ -131,6 +131,9 @@ struct PostView: View {
                                     EmptyView()
                                 }
                                 .hidden()
+                                
+                                NavigationLink(destination: PetProfileView(), tag: "P", selection: $selection) { EmptyView() }
+                                .hidden()
                                 VStack(alignment: .leading, spacing: 16) {
                                  
                                                   HStack{
@@ -239,6 +242,7 @@ struct PostView: View {
                                                           .background(Color.gray)
                                                           .cornerRadius(20)
                                                           .onTapGesture {
+                                                              
                                                               print(pet._id)
                                                               defaults.set(pet._id, forKey: "petId")
                                                               selection = "P"
